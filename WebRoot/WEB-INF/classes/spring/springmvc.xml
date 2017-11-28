@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+	<!-- 组件扫描 扫描controller -->
+	<context:component-scan base-package="net.erxue.controller"></context:component-scan>
+
+	<!-- 静态资源解析 -->
+ 	<!-- <mvc:resources location="D:/data/uploadfile/video/" mapping="D:/data/uploadfile/video/**/"/> -->
+ 	<mvc:resources location="/data/uploadfile/video/" mapping="/data/uploadfile/video/**/*"/>
+ 	<mvc:resources location="/video/" mapping="/video/**/*"/>
+ 	<mvc:resources location="/pic/" mapping="/pic/**/*"/>
+	<mvc:resources location="/js/" mapping="/js/**/*" />
+	<mvc:resources location="/erx/" mapping="/erx/**/"/>
+	<mvc:resources location="/assets/" mapping="/assets/**/"/>
+	 <mvc:resources location="/images/" mapping="/images/**/" />
+	
+	<mvc:resources location="/*" mapping="/*" />
+
+
+	<!-- 处理器映射器和处理器适配器 -->
+	<!-- conversion-service：注入自定义参数绑定 -->
+	<!-- <mvc:annotation-driven validator="validator" conversion-service="conversionService"></mvc:annotation-driven> -->
+	<mvc:annotation-driven  ></mvc:annotation-driven>
+
+	<!-- z自定义参数绑定 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"> 
+		配置转换器 <property name="converters"> <list> <bean class="cn.mycookies.ssm.cotroller.CustomDateConverter"></bean> 
+		</list> </property> </bean> -->
+	<!-- 校验器 <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> 
+		校验器 <property name="providerClass" value="org.hibernate.validator.HibernateValidator" 
+		/> 指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessages.properties <property 
+		name="validationMessageSource" ref="messageSource" /> </bean> 校验错误信息配置文件 
+		<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+		资源文件名 <property name="basenames"> <list> <value>classpath:CustomValidationMessages</value> 
+		</list> </property> 资源文件编码格式 <property name="fileEncodings" value="utf-8" 
+		/> 对资源文件内容缓存时间，单位秒 <property name="cacheSeconds" value="120" /> </bean> -->
+
+	<!-- 配置视图解析器 解析jsp视图默认使用jstl标签 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置前缀和后缀 -->
+		<!-- <property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property> -->
+		<!-- <property name="prefix" value="/"></property>
+		<property name="suffix" value=".html"></property> -->
+	</bean>
+
+	<!-- 全局异常处理器 <bean class="cn.mycookies.ssm.exception.CustomExceptionResolver"></bean> -->
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为50MB -->
+		<property name="maxUploadSize">
+			<value>52428800</value>
+		</property>
+	</bean>
+	
+	
+	<!-- 跨域拦截器??不行 -->
+	<mvc:interceptors>
+	  <mvc:interceptor>
+	        <mvc:mapping path="/**/*"/>
+	        <bean class="net.erxue.others.CrossInterceptor" />
+	    </mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/*"/>
+			<bean class="net.erxue.others.Interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	  
+	</mvc:interceptors>
+	<!-- 拦截器的配置 <mvc:interceptors> 多个拦截器顺序执行 <mvc:interceptor> /**表示拦截所有url和子url路径 
+		<mvc:mapping path="/**"/> <bean class="cn.mycookies.ssm.Interceptor.LoginInterceptor"></bean> 
+		</mvc:interceptor> <mvc:interceptor> /**表示拦截所有url和子url路径 <mvc:mapping path="/**"/> 
+		<bean class="cn.mycookies.ssm.Interceptor.HandlerInterceptor1"></bean> </mvc:interceptor> 
+		<mvc:interceptor> /**表示拦截所有url和子url路径 <mvc:mapping path="/**"/> <bean class="cn.mycookies.ssm.Interceptor.HandlerInterceptor2"></bean> 
+		</mvc:interceptor> </mvc:interceptors> -->
+
+</beans> 

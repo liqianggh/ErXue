@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.erxue.mapper.QuestionMapperCustom">
+ 
+	<resultMap type="QuestionAnswer" id="question_answer">
+		<id column="qid" property="qid"/>
+		<result column="gender" property="gender"/>
+		<result column="age" property="age"/>
+		<result column="question" property="question"/>
+		<result column="createtime" property="createtime"/>
+		<collection property="answerList" javaType="Answer">
+			<id column="aid" property="aid"/>
+			<result column="content" property="content"/>
+			<result column="answerTime" property="answerTime"/>
+		</collection>
+ 	</resultMap>
+	
+	<!-- 查找我的未回答的问题 -->
+	<select id="findMyQuestionNoAnswerd" parameterType="int" resultType="questionCustom">
+          SELECT question.*,user.username
+		  FROM question ,user where 
+		 question.uid=user.uid and question.isAnswered=0  and user.uid=#{value} order by question.createtime desc;
+	</select>
+	<!-- 查询已经回答的问题和答案 -->
+	<select id="findMyAnsweredQuestion" parameterType="int"  resultMap="question_answer">
+		   SELECT question.content question,question.gender,question.age,question.createtime,answer.answerTime,answer.content,answer.qid
+		  FROM question ,answer 
+		  WHERE
+		  question.isAnswered=1 AND
+		  question.qid=answer.qid AND
+		  question.uid=#{value} order by answer.answertime desc;
+	</select>
+	<!-- 查询问题答案 -->
+	<select id="findQuestionAnswerByQid" parameterType="int" resultMap="question_answer">
+	        SELECT question.qid, question.content question,question.gender,question.age,question.createtime,answer.answerTime,answer.content ,answer.aid
+		  FROM question left outer join answer 
+		  on
+		  question.qid=answer.qid  where question.qid =#{value}   order by answer.answertime desc;
+	</select>
+	<!-- 查询所有问题 -->
+	<select id="findAllQuestion" resultType="questionCustom">
+			SELECT * FROM QUESTION  order by isanswered asc;
+	</select>
+
+	<insert id="addMyQuestion" parameterType="question" >
+		INSERT INTO QUESTION (uid,content,gender,age)
+		values(#{uid},#{content},#{gender},#{age});
+	</insert>
+	<!--添加回答 -->
+	<insert id="addAnswer" parameterType="answer">
+		INSERT INTO ANSWER(qid,content) 
+		VALUES(#{qid},#{content})
+	</insert>
+	<!-- 设置问题为已经回答 -->
+	<update id="updateQuestionToAnswered" parameterType="int" >
+		UPDATE QUESTION SET isAnswered = true where qid=#{value}
+	</update>
+	
+	<delete id="deleteQuestion" parameterType="int">
+		delete from question where qid = #{value}
+	</delete>
+	<!-- 删除回答 -->
+	<delete id="deleteAnswer" parameterType="int">
+		delete from answer where aid=#{value}
+	</delete>
+	
+</mapper>

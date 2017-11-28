@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.erxue.mapper.CommentMapper">
+
+	<insert id="addComment" parameterType="comment">
+		insert into
+		comment(diseaseId,uid,content)
+		values(#{diseaseId},#{uid},#{content})
+	</insert>
+
+	<delete id="deleteCommentById" parameterType="int">
+		delete from comment
+		where cid=#{value}
+	</delete>
+
+	<select id="findAllComments" resultType="CommentCustom">
+		select comment.*
+		,user.username ,disease.diseaseName
+		from comment,user,disease where
+		comment.uid= user.uid and
+		comment.diseaseId=disease.diseaseId
+	</select>
+
+	<!-- 查询我的评论 -->
+	<select id="findMyComments" resultType="CommentCustom"
+		parameterType="user">
+		select comment.* ,user.username ,disease.diseaseName from
+		comment,user,disease
+		where comment.uid= user.uid and comment.diseaseId=disease.diseaseId
+		and user.uid=#{uid};
+	</select>
+	
+</mapper>

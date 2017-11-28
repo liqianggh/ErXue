@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.erxue.mapper.AcupointMapperCustom">
+	<!-- 添加部位 -->
+	<insert id="addModules" useGeneratedKeys="true" keyProperty="mid" parameterType="Modules">
+		INSERT INTO MODULES values(#{modulesId},#{modulesName},#{description})
+	</insert>
+	<!-- 添加穴位 -->
+	<insert id="addAcupoint" parameterType="AcupointCustom">
+		INSERT INTO ACUPOINT(acupointid,acupointname,videolocation,description,modulesid) 
+		VALUES(#{acupointId},#{acupointName},#{videolocation},#{description},#{modulesId})
+	</insert>
+	<!-- 批量插入穴位 -->
+	<insert id="addAcupoinForBatch" parameterType="java.util.List">
+		INSERT INTO ACUPOINT (acupointid,acupointname,videolocation,description,modulesid) 
+		VALUES
+		<foreach collection="list" item="acupoint" separator=",">
+			 (#{acupoint.acupointId},#{acupoint.acupointName},#{acupoint.videolocation},#{acupoint.description},#{acupoint.modulesId})
+		</foreach>
+	</insert>
+	
+	
+	<!-- 查询穴位 -->
+	<!-- 根据模块id查询穴位 -->
+	<select id="findAcupointsByModulesId" parameterType="int" resultType="AcupointCustom">
+		SELECT * FROM ACUPOINT WHERE modulesId = #{modulesId}
+	</select>
+	<select id="findAcupointsById" parameterType="int" resultType="AcupointCustom">
+		SELECT * FROM ACUPOINT WHERE acupointId=#{acupointId}
+	</select>
+	<select id="findAllAcupoinsByPage" parameterType="Acupoint" resultType="Acupoint">
+		SELECT * FROM ACUPOINT WHERE acupointid >0 order by modulesId asc
+	
+	</select>
+		<select id="findAllAcupoints"  resultType="Acupoint">
+		SELECT * FROM ACUPOINT WHERE acupointid >0 order by modulesId asc
+	</select>
+	
+	<!-- 根据穴位名称查询穴位 -->
+	<select id="findAcupointsByNameByPage" parameterType="Acupoint" resultType="Acupoint">
+		SELECT * FROM ACUPOINT WHERE acupointName LIKE '%${acupointName}%'
+	</select>
+		<select id="findAcupointsByName" parameterType="Acupoint" resultType="Acupoint">
+		SELECT * FROM ACUPOINT WHERE acupointName LIKE '%${acupointName}%'
+	</select>
+	
+	
+	<!-- 查询所有模块 -->
+	<select id="findAllModulesByPage" parameterType="Modules" resultType="Modules">
+		SELECT * FROM MODULES 
+	</select>
+	<select id="findAllModules" resultType="Modules">
+		SELECT * FROM MODULES
+	</select>
+	<select id="findModulesById" parameterType="int" resultType="Modules">
+		SELECT * FROM MODULES WHERE modulesId=#{value}
+	</select>
+	
+	<!-- 根据模块id删除穴位 -->
+	<delete id="deleteAcupointsByModulesId" parameterType="int">
+		DELETE FROM acupoint WHERE modulesId=#{value}
+	</delete>
+	<!-- 根据穴位id删除穴位 -->
+	<delete id="deleteAcupointById" parameterType="int">
+		DELETE FROM acupoint WHERE acupointId=#{value}
+	</delete>
+	<!-- 删除所有穴位 -->
+	<delete id="deleteAllAcupoint" >
+		DELETE FROM ACUPOINT WHERE acupointId>0;
+	</delete>
+	<!-- 根据id删除模块 -->
+	<delete id="deleteModulesById" parameterType="int">
+		DELETE FROM modules WHERE modulesId = #{value}
+	</delete>
+	
+	
+	<!-- 修改模块 -->
+	<update id="updateModules" parameterType="modules" >
+		UPDATE modules SET
+		modulesName=#{modulesName},
+		description=#{description} 
+		<where>
+			<if test="modulesId==null || modulesId==0">
+				modulesId=-1
+			</if>
+	 		<if test="modulesId!=null">
+			    modulesId=#{modulesId}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 修改穴位 -->
+	<update id="updateAcupoint" parameterType="acupoint">
+		UPDATE acupoint SET 
+		acupointName=#{acupointName},
+		description=#{description},
+		videolocation=#{videolocation},
+		modulesId=#{modulesId}
+		WHERE acupointId = #{acupointId}
+	</update>
+	
+	<!-- 批量修改模块 -->
+	
+	<!-- 批量修改穴位 -->
+	
+</mapper>

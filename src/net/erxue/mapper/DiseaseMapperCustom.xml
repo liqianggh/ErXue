@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.erxue.mapper.DiseaseMapperCustom">
+
+	<!-- 添加疾病系统 -->
+	<insert id="addDiseaseSystem" parameterType="DiseaseSystemCustom">
+		INSERT INTO
+		diseasesystem(systemId,systemName) VALUES(#{systemId},#{systemName})
+	</insert>
+	<!-- 添加疾病分类 -->
+	<insert id="addDiseaseCategory" parameterType="DiseaseCategory">
+		INSERT INTO
+		diseasecategory(diseaseCategoryId,diseaseDescription,diseaseCategoryName,diseaseSystemId,attention)
+		VALUES(#{diseaseCategoryId},#{diseaseDescription},#{diseaseCategoryName},#{diseaseSystemId},#{attention})
+	</insert>
+
+
+	<!-- 添加疾病对应的穴位 -->
+	<insert id="addAcupointsToDisease" parameterType="DiseaseCategoryAndAcupointUpload">
+		INSERT INTO
+		diseaseandacupoint(diseaseCategoryId,acupointid,acupointtype)
+		VALUES
+
+		<if test="mainAcupointList !=null">
+			<foreach collection="mainAcupointList" item="item" separator=","
+				index="">
+				(#{diseaseCategoryId},#{item},'主穴')
+			</foreach>
+		</if>
+
+		<if test="!sideAcupointList.isEmpty">
+			<foreach  collection="sideAcupointList" item="item2"
+				separator="," index="" open=",">
+				(#{diseaseCategoryId},#{item2},'配穴')
+			</foreach>
+		</if>
+	</insert>
+	<resultMap type="DiseaseCategoryCustom" id="dieaseCategory_dieaseCategoryAndAcupoint">
+		<!-- 配置疾病信息 -->
+		<id column="diseaseCategoryId" property="diseaseCategoryId" />
+		<result column="diseaseCategoryName" property="diseaseCategoryName" />
+		<result column="attention" property="attention" />
+		<result column="diseaseSystemId" property="diseaseSystemId" />
+		<result column="diseaseDescription" property="diseaseDescription" />
+		<!-- 配置穴位信息 -->
+		<collection property="diseaseCategoryAndAcupointList"
+			javaType="DiseaseCategoryAndAcupoint">
+			<id column="id" property="id" />
+			<result column="diseaseCategoryId" property="diseaseCategoryId" />
+			<result column="acupointName" property="acupointName"></result>
+			<result column="acupointId" property="acupointId" />
+			<result column="acupointType" property="acupointType" />
+			<result column="description" property="description" />
+			<result column="modulesid" property="modulesId" />
+			<result column="videoLocation" property="videoLocation" />
+		</collection>
+	</resultMap>
+
+
+	<!-- 查询所有疾病和它对应的穴位 -->
+	<select id="findAllDiseaseCategoryWithAcupoints" resultMap="dieaseCategory_dieaseCategoryAndAcupoint">
+		SELECT
+		da.id,da.acupointid,da.acupointType,
+		a.*,
+		d.*
+		FROM
+		diseaseandacupoint da ,acupoint a ,diseaseCategory d
+		where
+		da.acupointid=a.acupointid order by da.acupointId asc ;
+	</select>
+
+	<!-- 查询疾病以及对应的所有穴位ById -->
+	<select id="findDiseaseCategoryWithAcupointsById" parameterType="int"
+		resultMap="dieaseCategory_dieaseCategoryAndAcupoint">
+		SELECT
+		da.id,da.acupointid,da.acupointType,
+		a.*,
+		d.*
+		FROM
+		diseaseandacupoint da ,acupoint a ,diseaseCategory d
+		where
+		da.acupointid=a.acupointid and da.diseaseCategoryId=d.diseaseCategoryId and
+		da.diseaseCategoryId=#{value} order by acupointType asc ;
+	</select>
+	<!-- 查询所有疾病系统 -->
+	<select id="findAllDiseaseSystems" resultType="DiseaseSystem">
+		SELECT * FROM
+		DISEASESYSTEM
+	</select>
+	<!-- 根据id查询疾病系统 -->
+	<select id="findDiseaseSystemById" parameterType="int"
+		resultType="DiseaseSystem">
+		SELECT * FROM DISEASESYSTEM WHERE
+		diseaseSystemId=#{diseaseSystemId}
+	</select>
+	<!-- 查询疾病根据系统id -->
+	<select id="findAllDiseaseCategorySim" parameterType="int"
+		resultType="DiseaseCategoryCustom">
+		SELECT
+		d.diseaseCategoryName,d.diseaseCategoryId,s.systemName,d.diseasesystemid
+		from diseaseCategory d,diseasesystem s
+		<where>
+			<if test="true">
+				d.diseasesystemid=s.systemId
+			</if>
+			<if test="value !=null">
+				and d.diseasesystemid=#{value}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据系统系统id查询分类 -->
+	<select id="findDiseaseCategoryBySystemId" parameterType="int"
+		resultType="DiseaseCategoryCustom">
+		SELECT ds.systemName
+		,dc.diseaseCategoryId,dc.diseaseCategoryName,dc.diseaseDescription
+		FROM diseasecategory dc ,diseaseSystem ds
+		where dc.diseasesystemId=ds.systemId and dc.diseasesystemid=#{value}
+	</select>
+	<!-- 查询所有疾病分类(不带学位) -->
+	<select id="findAllDiseaseCategory" resultType="DiseaseCategory">
+		SELECT
+		diseaseCategoryId,diseaseCategoryName,diseaseDescription FROM
+		DISEASECATEGORY
+	</select>
+	<!-- 根据id查询分类 -->
+	<select id="findDiseaseCategoryById" parameterType="int"
+		resultType="DiseaseCategory">
+		SELECT * FROM diseaseCategory WHERE
+		diseaseCategoryId=#{diseaseCategoryId}
+	</select>
+
+
+
+
+	<!-- 修改疾病系统 -->
+	<update id="updateDiseaseSystem" parameterType="DiseaseSystem">
+		UPDATE diseasesystem
+		set systemName=#{systemName}
+		WHERE systemId=#{systemId}
+	</update>
+
+	<!-- 修改疾病 分类 -->
+	<update id="updateDiseaseCategory" parameterType="DiseaseCategory">
+		UPDATE
+		diseaseCategory
+		set
+		diseaseCategoryName=#{diseaseCategoryName},
+		diseaseDescription=#{diseaseDescription},
+		diseasesystemid=#{diseaseSystemId},
+		attention=#{attention}
+		WHERE
+		diseaseCategoryId=#{diseaseCategoryId}
+	</update>
+
+	<!-- 删除系统 -->
+	<delete id="deleteDiseaseSystemById" parameterType="int">
+		DELETE FROM
+		DISEASESYTEM WHERE SYSTEMID=#{vlaue}
+	</delete>
+
+	<!-- 删除分类 -->
+	<delete id="deleteDiseaseCategoryById" parameterType="int">
+		DELETE FROM
+		DISEASECATEGORY WHERE diseaseCategoryId=#{vlaue}
+	</delete>
+
+	<!-- 删除穴位 -->
+	<delete id="deleteAcupointOfDisease" parameterType="DiseaseCategoryAndAcupoint">
+		DELETE FROM
+		diseaseandacupoint WHERE id=#{value}
+
+	</delete>
+
+
+</mapper>

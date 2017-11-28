@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.erxue.mapper.UserMapperCustom">
+	<!-- 添加用户 -->
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="uid"
+		parameterType="user">
+		INSERT INTO USER
+		(username,password)
+		VALUES(#{username},#{password})
+	</insert>
+	<!-- 添加用户疾病 -->
+	<insert id="addUserDisease" parameterType="userDisease">
+		INSERT INTO user_disease(uid,diseaseCategoryId) values(#{uid},#{diseaseCategoryId})
+	</insert>
+	
+	<!-- 删除用户/用户详细信息 -->
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM USER WHERE
+		uid=#{value}
+	</delete>
+	<!-- 修改用户信息 -->
+	<update id="updateUser" parameterType="UserCustom">
+		UPDATE USER SET
+		username=#{username},password=#{password},level=#{level}
+	</update>
+	
+	<!-- 查询用户 -->
+	<select id="findUserCustomById" parameterType="int" resultType="UserCustom">
+		SELECT
+		* FROM USER WHERE uid = #{value}
+	</select>
+	
+	<select id="findUserByUsernamePassword" parameterType="User"  resultType="UserCustom">
+	SELECT * FROM USER WHERE username=#{username} and password=#{password}
+	</select>
+	<!-- 查询用户名是否已经被注册 -->
+	<select id="checkUsernameIsExists" parameterType="string" resultType="User">
+		SELECT * FROM USER WHERE username=#{value}
+	</select>
+	
+	<!-- 查询用户所患疾病 -->
+	  <select id="findUserDisease" parameterType="int" resultType="userDiseaseVo">
+	    SELECT  
+        u.username,d.diseaseCategoryName,d.diseaseCategoryId,ud.udid
+        from user u ,diseaseCategory d,user_disease ud
+        where ud.diseaseCategoryId=d.diseaseCategoryId and u.uid=#{value};	
+	</select> 
+
+</mapper>

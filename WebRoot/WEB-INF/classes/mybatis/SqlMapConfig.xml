@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 配置懒加载 -->
+	<settings>
+		<!-- 配置懒加载开关 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 将积极加载改为懒加载 -->
+	</settings>
+
+	<!-- 定义别名 -->
+	<typeAliases>
+		<package name="net.erxue.po" />
+		<package name="net.erxue.vo"/>
+	</typeAliases>
+	
+ 	<!-- 分页拦截器 -->
+	<plugins>
+		<plugin interceptor="net.erxue.others.Interceptor.PageInterceptor"/>
+	</plugins>
+	
+	
+	<mappers>
+		 <package name="net.erxue.mapper"/>
+	</mappers>
+	
+
+ 	
+</configuration>
