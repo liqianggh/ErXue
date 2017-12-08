@@ -7,13 +7,9 @@ var userInput = {                   //储存用户输入的表单
 //获取用户名
 var usernameInput = document.getElementById('usernameInput');
 usernameInput.onblur = function (){
-    if(!/(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$/i.test(usernameInput.value)){
-        document.getElementById('check-phoneNumber').className = 'show';
-        return;
-    }
-    document.getElementById('check-phoneNumber').className = 'hidden';
     userInput.username = usernameInput.value;
 }
+
 //获取密码
 var passwordInput = document.getElementById('passwordInput');
 
@@ -40,15 +36,15 @@ submit.onclick = function (){
         url: url + '/login.action',
         data: userInput,
         dataType: 'text',
-//        contentType:"application/json",
         success: function (data){
-            if(data==="false"){
-                document.getElementById('check-password').className = 'show';
-                return;
-            }else{
-            	document.getElementById('check-password').className = 'hidden';  
-            	window.location.href="widget.html";
-            }      
+            console.log(data);
+//            if(!Boolean(data)){
+//                document.getElementById('check-password').className = 'show';
+//                return;
+//            }          
+//            document.getElementById('check-password').className = 'hidden';            
+            data?window.location.href="widget.html":alert("登陆失败！");
+
         }
     })
 }

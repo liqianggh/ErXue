@@ -8,7 +8,10 @@ $.ajax({
 	type: 'GET',
 	dataType: '',
 	data: '',
-	async: false ,
+    async: false,  
+    xhrFields: {  
+        withCredentials: true  
+    },  
 	success: function(data1) {
 		var arr = [];
 		var mod = [];
@@ -34,12 +37,14 @@ $.ajax({
 var num=0;
 var datamod=[];
 for(var i=0;i<link;i++){
-
 	$.ajax({
 	    url: url+ '/ErXueSSM/findDiseaseCategoryBySystemId.action',
 	    type: 'GET',
 	    dataType: '',
-	    async: false ,
+	    async: false,  
+        xhrFields: {  
+            withCredentials: true  
+        },  
 	    data: {systemId: mods[i]},
 	    success:function(data){
 	      var mod=[];
@@ -51,10 +56,8 @@ for(var i=0;i<link;i++){
 	        mod.push(data[i].diseaseCategoryName);
 	        arr.push(data[i].diseaseCategoryId);
 	        $(".am-list").eq(num).append('<li class="am-g am-list-item-dated"><a onclick="abc(this);" data-num='+num+' data-i='+i+' href=./widget3.html?diseaseCategoryId='+arr[i]+' class="am-list-item-hd ">'+mod[i]+'</a></li>');
-	      	
 	      }
 	      num++;
-	     
 	    }
 	  });
 	//console.log(datamod);
@@ -67,6 +70,8 @@ for(var i=0;i<link;i++){
 	// }
 	// JSON.stringify(json);
 	//console.log(allData[0][1]);
+
+
 function abc(dom){
 	var id=dom.getAttribute('data-num');
 	var aId=dom.getAttribute('data-i');

@@ -66,7 +66,7 @@ phoneNumber.onblur = function(){
 //获取验证码
 var VerificationCode;
 var getVerificationCode = document.getElementById('getVerificationCode');
-var url = 'http://111.230.141.147:8080/ErXueSSM'
+var url = 'http://111.230.236.54:8080/ErXueSSM'
 getVerificationCode.onclick = function(){
     if(!phone){
         document.getElementById('check-phoneNumber').className = 'show';
@@ -108,7 +108,7 @@ VerificationCodeInput.onblur = function(){
 
 var submit = document.getElementById('submit');
 submit.onclick = function(){
-    var url = 'http://111.230.141.147:8080/ErXueSSM'
+    var url = 'http://111.230.236.54:8080/ErXueSSM'
 
     if(!VerificationCodeInput.value){
         document.getElementById('check-VerificationCodeInput').className = 'show';

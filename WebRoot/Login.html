@@ -17,47 +17,24 @@
     <link rel="stylesheet" href="assets/amazeui.touch.min.css">
     <link rel="stylesheet" href="assets/amazeui.touch.css">
     <link rel="stylesheet" href="assets/Login.css">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css">
-  <link rel="stylesheet" href="assets/css/app.css">
 </head>
-<style>
-    .am-header-title{
-        position: relative;
-        top: 0.8rem;
-    }
-</style>
 <body>
-   <!--  <header class="navbar navbar-primary">
-
+    <header class="navbar navbar-primary">
         <h2 class="navbar-title navbar-center">登陆</h2>
-    </header> -->
-    <header data-am-widget="header"
-          class="am-header am-header-default">
-     <div class="am-header-left am-header-nav">
-          <a href="widget.html"><i class="am-icon-home"></i>主页</a>
-      </div>
-
-      <h1 class="am-header-title">
-          耳穴网
-      </h1>
-      <div class="am-header-right am-header-nav">
-          <a href="Logup.html"><i class="am-icon-user"></i>注册</a>
-      </div>
-
-      
-  </header>
+    </header>
     <div class="container container-fill container-scrollable">
         <div class="group-body">
             <label class="field-container">
                 <span class="field-label">用 户 名：</span>
                 <input type="text" placeholder="请输入您的用户名" class="field" id="usernameInput"/>
+                <h6 class="hidden" id="check-phoneNumber">* 请输入正确的电话号码</h6>
             </label>
             <label class="field-container">
                 <span class="field-label">密 码：</span>
                 <input type="password" placeholder="请输入密码" class="field" id="passwordInput"/>
                 <h6 class="hidden" id="check-password">* 密 码 错 误 ！</h6>
             </label>
-            <a href="ForgetPw.html">忘记密码？</a>
+            <a>忘记密码？</a>
             <input type="submit" class="btn btn-secondary btn-block" value="登 陆" id="submit">
         </div>
     </div>

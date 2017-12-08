@@ -16,9 +16,12 @@ import net.erxue.vo.UserDiseaseVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mysql.jdbc.StringUtils;
 
 import cn.itcast.vcode.utils.VerifyCode;
 
@@ -36,18 +39,21 @@ public class UserController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/login.action",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody boolean login(User userParam,HttpServletResponse response,HttpSession session)throws Exception{
+	public @ResponseBody boolean login( User userParam,HttpServletResponse response,HttpSession session)throws Exception{
 	System.out.println("login.aciton中的session对象"+session);
+	System.out.println(userParam+"接收到的参数");
+		if(userParam==null||userParam.getUsername()==null||userParam.getPassword()==null){
+			return false;
+		}
 		User user = null;
 		user = userService.login(userParam);
 		
 System.out.println(user+"登陆");
-		session.setAttribute("user", user);
 		if(user!=null){
-//			 response.setHeader("sessionStatus", "loginSuccess");
-//			 response.sendError(666, "session timeout.");
+			session.setAttribute("user", user);
 			return true;
 		}else{
+			
 			return false;
 		}
 	}
@@ -60,13 +66,14 @@ System.out.println(user+"登陆");
 	 * @return boolean
 	 */
 	@RequestMapping(value="/regist.action",method={RequestMethod.POST})
-	public @ResponseBody boolean regist(User user,
+	public @ResponseBody boolean regist(@RequestBody User user,
 			HttpSession session,HttpServletResponse response) throws IOException{
  System.out.println(user+"接收到的参数");
  System.out.println("regist.actionz中的session对象"+session);
-		if(user==null){
+		if(user==null||user.getUsername()==null||user.getPassword()==null){
 			return false;
 		}
+		
 		Boolean verifyResult = (Boolean) session.getAttribute("verifyResult");
 		if(verifyResult==null||verifyResult==false){
 			return false;
@@ -87,35 +94,28 @@ System.out.println(user+"登陆");
 	/**
 	 *发送短信验证码 
 	 * sendMessageVerifyCode.action
-	 * @param mobilePhone(电话号码)
+	 * @param username(电话号码)
 	 * @return int 返回0表示成功
 	 */
 	@RequestMapping(value="/sendMessageVerifyCode.action",method={RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody Integer sendMessageVerifyCode(String username,HttpSession session){
-		 SmsSingleSenderResult result=null;
-System.out.println("sendMessageVerifyCode.action中的session对象"+session);
+System.out.println("发送验证码的session"+session);
+		if(username==null||username.length()<1){
+			return -1;
+		}
+//		 SmsSingleSenderResult result=null;
+//System.out.println("sendMessageVerifyCode.action中的session对象"+session);
 		try {
 //			result = userService.sendMessage(username);
 //			session.setAttribute("verifyCode", result.getExt());
-			session.setAttribute("verifyCode", "123465");
+			session.setAttribute("verifyCode", "666666");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 //		 return result.getResult();
-		return 0;
+		
+		return 666666;
 	}
-	
-
-	
-	@RequestMapping(value="/getCode",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody String getCode(HttpSession session){
-System.out.println(session+"getCode中的session对象");
-		String code =     (String) session.getAttribute("verifyCode");
-		System.out.println(code+"或去哦code");
-		return code;
-	}
-	
-	
 	/**
 	 * 校验验证码（短信和图片都可以）
 	 * checkout.action
@@ -124,8 +124,11 @@ System.out.println(session+"getCode中的session对象");
 	 */
 	@RequestMapping(value="checkout.action" ,method={RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody boolean checkout( String verifyCode,HttpSession session){
+System.out.println("接收到的数据"+verifyCode);
+System.out.println("检验证码的session"+session);
 		//获取验证码
 		String verifyCodeInSession = (String) session.getAttribute("verifyCode");
+System.out.println("session中的验证吗"+verifyCodeInSession);
 		//session.removeAttribute("verifyCode");
 		if(verifyCode==null||verifyCode==""||verifyCode.length()<4){
 			return false;
@@ -167,9 +170,14 @@ System.out.println(session+"getCode中的session对象");
 	 * @return boolean（如果用户名可用返回true，返回false表示已经注册）
 	 */
 	@RequestMapping(value="checkUsername.action",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody boolean checkUsername(String username){
+	public @ResponseBody boolean checkUsername(@RequestBody String username){
+System.out.println(username+"接收到的username");
 		Boolean flag=false;
 		try {
+			if(username==null||username.length()<1){
+				return flag;
+			}
+			
 			flag = userService.chechUsername(username);
 		} catch (Exception e) {
 			System.out.println("校验用户名出错");
@@ -177,27 +185,5 @@ System.out.println(session+"getCode中的session对象");
 		}
 		return flag;
 	}
-	
-
-
-	/**
-	 * getSession.action
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/getSession.action",method={RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody User getSession(HttpSession session) throws Exception{
-		User user2 = new User();
-		user2.setUsername("helloworld");
-		user2.setPassword("helloworld");
-		User user  = userService.login(user2);
-		session.setAttribute("user", user);
-		System.out.println(user.toString()+"这是用户");
-		user.setPassword("");
-		user.setUid(1);
-		return user;	
-		
-	}
-	
 	
 }

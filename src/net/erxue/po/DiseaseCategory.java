@@ -9,10 +9,8 @@ public class DiseaseCategory extends BaseBean{
 	private String diseaseDescription;
 	//所属系统
 	private Integer diseaseSystemId;
-	
 	//疾病治疗
 	private String attention;
-	
 	 
 	public DiseaseCategory() {
 		super();

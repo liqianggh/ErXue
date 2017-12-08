@@ -5,13 +5,11 @@ import java.util.List;
 
 public class DiseaseCategoryCustom extends DiseaseCategory {
 	private String systemName;
-
 	private List<DiseaseCategoryAndAcupoint> diseaseCategoryAndAcupointList=new ArrayList<DiseaseCategoryAndAcupoint>();
 
 	public String getSystemName() {
 		return systemName;
 	}
-
 	public void setSystemName(String systemName) {
 		this.systemName = systemName;
 	}

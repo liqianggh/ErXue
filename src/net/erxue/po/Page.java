@@ -4,7 +4,6 @@ package net.erxue.po;
  * 分页对象
  */
 public class Page {
-	
 	// 总条数
 	private int totalNumber;
 	// 当前页数

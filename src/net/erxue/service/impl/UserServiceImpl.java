@@ -12,12 +12,14 @@ import net.erxue.others.messageQQ.lib.SmsSingleSenderResult;
 import net.erxue.po.User;
 import net.erxue.po.UserCustom;
 import net.erxue.po.UserDisease;
+import net.erxue.po.UserJurisdiction;
 import net.erxue.service.UserService;
 import net.erxue.vo.UserDiseaseVo;
 
 import org.apache.logging.log4j.core.helpers.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserServiceImpl implements UserService {
@@ -52,6 +54,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserCustom login(User user) throws Exception {
 		UserCustom user2 = userMapperCustom.findUserByUsernamePassword(user);
+		if(user2!=null){
+			user2.setPassword("");
+		}
 		return user2;
 	}
 
@@ -93,6 +98,61 @@ public class UserServiceImpl implements UserService {
 	public UserCustom findUserById(Integer uid) throws Exception {
 		// TODO Auto-generated method stub
 		return userMapperCustom.findUserCustomById(uid);
+	}
+
+	@Override
+	public boolean isHaveAuthority(UserJurisdiction userJ) throws Exception {
+		UserJurisdiction user = userMapperCustom.findUserJurisdiction(userJ);
+		int uid=userJ.getUid();
+		if(user!=null){
+			return true;
+		}else{
+			//如果用户没有添加当前疾病 那么就消耗一个level
+			int level = userMapperCustom.findUserLevel(uid);
+			if(level>=1){
+				 int x = userMapperCustom.cutUserLevel(uid);//==1?true:false;
+				 int y = userMapperCustom.addUserJurisdiction(userJ);
+				 return x==1?true:false;
+			}else{
+				return false;
+			}
+		}
+	}
+
+	//减少用户level
+	@Override
+	public boolean cutUserLevel(Integer uid) throws Exception {
+		int level = userMapperCustom.findUserLevel(uid);
+		if(level>=1){
+			 return userMapperCustom.cutUserLevel(uid)==1?true:false;
+		}
+		return false;
+	}
+
+	//增加用户level
+	@Override
+	public boolean addUserLevel(Integer uid) throws Exception {
+		int x = userMapperCustom.addUserLevel(uid);
+		if(x==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public Integer getUserLevel(Integer uid) throws Exception {
+		return userMapperCustom.findUserLevel(uid);
+	}
+
+	@Override
+	public boolean addUserJurisdiction(UserJurisdiction userJ) throws Exception {
+		UserJurisdiction user = userMapperCustom.findUserJurisdiction(userJ);
+		if(user==null){
+			return userMapperCustom.addUserJurisdiction(userJ)==1?true:false;
+		}else{
+			return false;
+		}
 	}
 
 }

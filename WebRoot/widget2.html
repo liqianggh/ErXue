@@ -125,7 +125,7 @@
     .main-class-span{
       color: #37D13A;
     }
-    
+
   </style>
 </head>
 <body class="am-with-fixed-navbar">
@@ -162,11 +162,11 @@
       </div>
     </div>
   <!--  -->
-<!-- 
+<!--
    -->
 
   <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-   <div class="main-class"> 
+   <div class="main-class">
     
    </div>
  <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
@@ -205,17 +205,17 @@
       <span class="am-footer-ysp" data-rel="mobile" data-am-modal="{target: '#am-switch-mode'}">
           手机版
       </span>
-       
+
       </div>
       <div class="am-footer-miscs ">
-  
+
             <!-- <p>由 <a href="www.erxue.net" title="上官衍鹏" target="_blank" class="">上官衍鹏</a>
               提供技术支持</p> -->
           <p>CopyRight©2017  耳穴 Inc.</p>
           <!-- <p>京ICP备15098725z</p> -->
       </div>
     </footer>
-  
+
     <div id="am-footer-modal" class="am-modal am-modal-no-btn am-switch-mode-m ">
       <div class="am-modal-dialog">
         <div class="am-modal-hd am-modal-footer-hd">
@@ -223,19 +223,19 @@
         </div>
         <div class="am-modal-bd">
             您正在浏览的是
-  
+
           <span class="am-switch-mode-owner">
               上官衍鹏
           </span>
-  
+
           <span class="am-switch-mode-slogan">
                 为您当前手机订制的移动网站。
           </span>
         </div>
       </div>
     </div>
-  
- 
+
+
 
 
 
@@ -262,15 +262,15 @@
      url:  url + '/ErXueSSM/findAllDiseaseSystem.action',
      type: 'GET',
      dataType: '',
-     
+
      data: '',
     success:function(data1){
- 
+
       var arr=[];
       var mod=[];
       timer=data1.length;
       console.log(data1);
-     
+
       for(var i=0;i<data1.length;i++){
         arr.push(data1[i].systemName);
         mod.push(data1[i].systemId);
@@ -284,11 +284,11 @@
         }
      });
   //渲染之前
-  
-  
-  
-  
- 
+
+
+
+
+
 
   /*
   // 如果 Handlebars 渲染出来的 HTML 在 DOM ready 事件之后插入文档，需要手动初始化组件

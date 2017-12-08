@@ -12,6 +12,12 @@
 	<insert id="addUserDisease" parameterType="userDisease">
 		INSERT INTO user_disease(uid,diseaseCategoryId) values(#{uid},#{diseaseCategoryId})
 	</insert>
+	<!-- 添加用户可读疾病 -->
+	<insert id="addUserJurisdiction" parameterType="UserJurisdiction">
+		INSERT INTO UserJurisdiction(id,uid,diseaseCategoryId) values(null,#{uid},#{diseaseCategoryId})
+	</insert>
+		
+	
 	
 	<!-- 删除用户/用户详细信息 -->
 	<delete id="deleteUserById" parameterType="int">
@@ -23,7 +29,26 @@
 		UPDATE USER SET
 		username=#{username},password=#{password},level=#{level}
 	</update>
+	<!-- 给用户增加一个访问权限 -->
+	<update id="addUserLevel" parameterType="Integer">
+		UPDATE USER SET level = level+1 where uid=#{value}
+	</update>
+	<!-- 消耗一个访问权限 -->
+	 <update id="cutUserLevel" parameterType="Integer">
+	 	UPDATE user SET level = level-1 WHERE uid=#{value}
+	 </update>
 	
+	<!-- 查询用户是否有访问指定疾病的权限 -->
+	<select id="findUserJurisdiction" parameterType="UserJurisdiction" resultType="UserJurisdiction">
+		SELECT * FROM UserJurisdiction where uid=#{uid} and diseaseCategoryId=#{diseaseCategoryId}
+	</select>
+	
+	<!-- 查看用户level -->
+	<select id="findUserLevel" parameterType="Integer" resultType="int">
+		SELECT level FROM  user where uid=#{value}
+	</select>
+		
+		
 	<!-- 查询用户 -->
 	<select id="findUserCustomById" parameterType="int" resultType="UserCustom">
 		SELECT

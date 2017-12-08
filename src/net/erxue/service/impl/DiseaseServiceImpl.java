@@ -101,6 +101,9 @@ public class DiseaseServiceImpl implements DiseaseService {
 	public DiseaseCategoryCustom findDiseaseCategoryWithAcupointsById(
 			Integer diseaseCategoryId) throws Exception {
 		DiseaseCategoryCustom diseaseCategoryCustom=diseaseMapper.findDiseaseCategoryWithAcupointsById(diseaseCategoryId);
+		if(diseaseCategoryId==null){
+			return null;
+		}
 		List<DiseaseCategoryAndAcupoint> dcaList = diseaseCategoryCustom.getDiseaseCategoryAndAcupointList();
 		if(!dcaList.isEmpty()){
 			for(DiseaseCategoryAndAcupoint dca :dcaList){

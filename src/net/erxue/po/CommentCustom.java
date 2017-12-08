@@ -2,7 +2,6 @@ package net.erxue.po;
 
 public class CommentCustom extends Comment{
 	private String username;
-	
 	private String diseaseName;
 
 	public String getDiseaseName() {
@@ -13,7 +12,6 @@ public class CommentCustom extends Comment{
 	public String getTime() {
 		return time;
 	}
-
 	public void setTime(String time) {
 		this.time = time;
 	}

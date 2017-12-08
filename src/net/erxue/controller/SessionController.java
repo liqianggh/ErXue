@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+//测试专用
 @Controller
 public class SessionController {
 	
@@ -20,8 +21,6 @@ public class SessionController {
 		
 		return user;
 	}
-	
-	
 	
 	
 	@RequestMapping(value="/setUser",method={RequestMethod.POST,RequestMethod.GET})

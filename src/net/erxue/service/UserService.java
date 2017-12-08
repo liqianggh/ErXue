@@ -6,6 +6,7 @@ import net.erxue.others.messageQQ.lib.SmsSingleSenderResult;
 import net.erxue.po.User;
 import net.erxue.po.UserCustom;
 import net.erxue.po.UserDisease;
+import net.erxue.po.UserJurisdiction;
 import net.erxue.vo.UserDiseaseVo;
 
 public interface UserService {
@@ -25,6 +26,14 @@ public interface UserService {
 	public boolean addUserDisease(UserDisease userDisease)throws Exception;
 	
 	public boolean registUser(User user) throws Exception;
+	
+	public boolean isHaveAuthority(UserJurisdiction userJ) throws Exception;
+	
+	public boolean cutUserLevel(Integer uid)throws Exception;
+	public boolean addUserLevel(Integer uid)throws Exception;
+	public Integer getUserLevel(Integer uid)throws Exception;
+	
+	public boolean addUserJurisdiction(UserJurisdiction userJ)throws Exception;
 	
 
 }

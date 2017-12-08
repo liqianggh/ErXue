@@ -97,7 +97,7 @@
         <a href="widget.html"><i class="am-icon-home"></i></a>
         <i class="am-icon-bars" data-am-offcanvas="{target: '#bars'}"></i>
         <h1 class="am-header-title">
-            疾病分类
+           疾病详情
         </h1>
   
     </header>
@@ -199,10 +199,16 @@ $('.main-class').append('<p class="main-class-attention"><span class="main-class
  }
  //findDiseaseCategoryBySystemId.action
  var dId=window.location.href.split('=',2)[1];
+
  //下面打算按钮点击权限发送ajax
 
 $('.btn').click(function() {
-	
+/*  var x = confirm("温馨提示:"
+ + "进入前请确定您已经拥有查看该疾病的权限，否则会消耗一次机会。新注册用户默认有两次机会！");
+ if(x==false){
+ 	return ;
+ } */
+ 
   $.ajax({
     url: url+'/ErXueSSM/user/findDiseaseCategoryWithAcupointsById.action',
     type: 'POST',

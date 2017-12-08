@@ -5,6 +5,7 @@ import java.util.List;
 import net.erxue.mapper.UserMapperCustom;
 import net.erxue.po.User;
 import net.erxue.po.UserDisease;
+import net.erxue.po.UserJurisdiction;
 import net.erxue.service.UserService;
 import net.erxue.service.impl.QuestionServiceImpl;
 import net.erxue.vo.UserDiseaseVo;
@@ -53,6 +54,24 @@ public class UserTest {
 		 System.out.println(list);
 //		System.out.println(user2.toString()+"这是用户");
 		
+	}
+	
+	
+	@Test
+	public void test2() throws Exception {
+		UserMapperCustom mapper = context.getBean(UserMapperCustom.class);
+ 
+		UserJurisdiction userJ = new UserJurisdiction();
+		userJ.setUid(1);
+		userJ.setDiseaseCategoryId(3);
+		
+//		int x = mapper.addUserJurisdiction(userJ);
+//		System.out.println(userJ);
+//		UserJurisdiction userResult = mapper.findUserJurisdiction(userJ);
+//		int x = mapper.findUserLevel(1);
+		int x = mapper.addUserLevel(1);
+//		int x = mapper.cutUserLevel(1);
+		System.out.println(x);
 	}
 
 }

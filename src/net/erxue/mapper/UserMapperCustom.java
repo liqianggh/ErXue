@@ -6,6 +6,7 @@ import java.util.List;
 import net.erxue.po.User;
 import net.erxue.po.UserCustom;
 import net.erxue.po.UserDisease;
+import net.erxue.po.UserJurisdiction;
 import net.erxue.vo.UserDiseaseVo;
 
 
@@ -35,4 +36,18 @@ public interface UserMapperCustom {
 	//修改用户详细信息
 	public void updaUserDetail(UserCustom userCustom)throws Exception;
 	public void updateUser(UserCustom userCustom)throws Exception;
+	
+	
+	
+	//用户权限模块
+	
+	public int addUserJurisdiction(UserJurisdiction userJ)throws Exception;
+	public UserJurisdiction findUserJurisdiction(UserJurisdiction userJ)throws Exception;
+	
+	
+	public int findUserLevel(Integer uid)throws Exception;
+	public int cutUserLevel(Integer uid) throws Exception;
+	public int addUserLevel(Integer uid) throws Exception;
+	
+	
 }

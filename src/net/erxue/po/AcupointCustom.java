@@ -11,7 +11,6 @@ public class AcupointCustom extends Acupoint {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 	//穴位类型如：主穴
 	private String acupointType;
 

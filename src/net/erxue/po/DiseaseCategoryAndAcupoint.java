@@ -13,9 +13,6 @@ public class DiseaseCategoryAndAcupoint {
 	private String description;
 	private String videoLocation;
 	private String acupointName;
-	
-	
-	
  
 	public String getAcupointName() {
 		return acupointName;
