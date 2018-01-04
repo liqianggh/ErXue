@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.erxue.po.Answer;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import net.erxue.po.Answer;
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class QuestionAnswer {
 	private Integer qid;
 	private String gender;

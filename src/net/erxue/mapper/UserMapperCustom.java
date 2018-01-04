@@ -25,7 +25,7 @@ public interface UserMapperCustom {
 	public UserCustom findUserByUsernamePassword(User user)throws Exception;
 	
 	//查询用户是否已经组测
-	public User checkUsernameIsExists(String username)throws Exception;
+	public int checkUsernameIsExists(String username)throws Exception;
 	//查询所患疾病
 	public List<UserDiseaseVo> findUserDisease(Integer uid)throws Exception;
 	

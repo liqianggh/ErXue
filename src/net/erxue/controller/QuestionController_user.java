@@ -97,7 +97,7 @@ public class QuestionController_user {
 		if (user != null) {
 			uid = user.getUid();
 		} else {
-			uid = 1;
+			 return null;
 		}
 		List<QuestionAnswer> qaList = null;
 		try {

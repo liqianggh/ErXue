@@ -3,6 +3,8 @@ package net.erxue.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class DiseaseCategoryAndAcupointUpload {
 	private Integer diseaseCategoryId;
 	private List<Integer> mainAcupointList=new ArrayList<Integer>();

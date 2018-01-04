@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import net.erxue.common.ServerResponse;
 import net.erxue.mapper.UserMapperCustom;
 import net.erxue.others.messageQQ.MessageUtils;
 import net.erxue.others.messageQQ.lib.SmsSingleSenderResult;
@@ -42,12 +43,17 @@ public class UserServiceImpl implements UserService {
 	 * @return true  if regist is success
 	 */
 	@Override
-	public boolean registUser(User user) throws Exception {
-		int x = userMapperCustom.addUser(user);
+	public ServerResponse registUser(User user) {
+		int x=0;
+		try {
+			x = userMapperCustom.addUser(user);
+		} catch (Exception e) {
+			System.out.println("注册用户报错！");
+		}
 		if(x==1){
-			return true;
+			return ServerResponse.createBySuccess();
 		}else{
-			return false;
+			return ServerResponse.createByErrorMessage("注册失败！");
 		}
 	}
 
@@ -63,8 +69,8 @@ public class UserServiceImpl implements UserService {
 	// 校验用户是否已经注册
 	@Override
 	public boolean chechUsername(String username) throws Exception {
-		User user = userMapperCustom.checkUsernameIsExists(username);
-		if (user == null) {
+		int rowCount = userMapperCustom.checkUsernameIsExists(username);
+		if (rowCount == 0) {
 			return true;
 		}
 		return false;

@@ -2,6 +2,7 @@ package net.erxue.service;
 
 import java.util.List;
 
+import net.erxue.common.ServerResponse;
 import net.erxue.others.messageQQ.lib.SmsSingleSenderResult;
 import net.erxue.po.User;
 import net.erxue.po.UserCustom;
@@ -25,7 +26,7 @@ public interface UserService {
 	
 	public boolean addUserDisease(UserDisease userDisease)throws Exception;
 	
-	public boolean registUser(User user) throws Exception;
+	public ServerResponse registUser(User user);
 	
 	public boolean isHaveAuthority(UserJurisdiction userJ) throws Exception;
 	

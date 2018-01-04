@@ -6,6 +6,7 @@ import java.util.List;
 import net.erxue.mapper.DiseaseMapperCustom;
 import net.erxue.po.DiseaseCategoryCustom;
 import net.erxue.vo.DiseaseCategoryAndAcupointUpload;
+import net.erxue.vo.DiseaseSystemAndDiseaseVo;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,8 +54,10 @@ public class DiseaseTest {
 //		
 //		int x = diseaseMapper.addAcupointsToDisease(dc);
 //		System.out.println(x);
-		List<DiseaseCategoryCustom> list = diseaseMapper.findAllDiseaseCategorySim(1);
-		System.out.println(list);
+//		List<DiseaseCategoryCustom> list = diseaseMapper.findAllDiseaseCategorySim(1);
+		List<DiseaseSystemAndDiseaseVo> list2 = diseaseMapper.findAllDiseaseSystemAndDisease();
+		
+		System.out.println(list2.size());
 	}
 
 }

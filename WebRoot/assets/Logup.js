@@ -2,65 +2,49 @@
 var user = {
     username: '',        //电话
     password: '',           //密码
+    verifyCode:'',
 }
 var verifyCode;         //验证码
-//var url = 'http://192.168.0.110:8080/ErXueSSM';
-var url = 'http://111.230.236.54:8080/ErXueSSM'
 
-//验证用户名
-// var username = document.getElementById('username');
-// username.onchange = function(){    
-//     if(!/^[a-zA-Z\d]+$/i.test(username.value)){
-//         document.getElementById('check-username').className = 'show';
-//         return;
-//     }
-//     document.getElementById('check-username').className = 'hidden';
-//     user.username = username.value;
-//     $.ajax({
-//         type: 'post',
-//         url: url + '/checkUsername.action',
-//         data: user.username,    
-//         success: function (data){            
-//             if(!data){
-//                 alert('该用户名已注册！'); 
-//                 return;
-//             }
-//         }
-//     });
-    
-// }
+//var url = 'http://localhost:8080/ErXueSSM';
+//var url = 'http://111.230.236.54:8080/ErXueSSM'
 //验证电话号码格式
 var phoneNumber = document.getElementById('phoneNumber');
 var phone;
-phoneNumber.onblur = function(){
-    if(!/(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$/i.test(phoneNumber.value)){
+var switchs = true;
+ phoneNumber.onblur = function(){
+	 var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+    if(!myreg.test(phoneNumber.value)){
         document.getElementById('check-phoneNumber').className = 'show';
+        switchs = false;
         return;
     }
     document.getElementById('check-phoneNumber').className = 'hidden';
     phone = phoneNumber.value;
-    console.log(phone);
     user.username = phone;
-}
-
-phoneNumber.onchange = function(){  
-$.ajax({
-  type: 'post',
-  url: url + '/checkUsername.action',
-  contentType:'application/json',
-  data: { username:phoneNumber.value},    
-  async: false,  
-  xhrFields: {  
-      withCredentials: true  
-  },  
-  success: function (data){   
-      if(!data){
-          alert('该用户名已注册！'); 
-          return;
-      }
-  }
-});
-}
+    switchs=true;
+} 
+ 
+//
+//phoneNumber.onchange = function(){  
+//	$.ajax({
+//		  type: 'get',
+//		  url: url + '/checkUsername.action',
+//		  contentType:'application/json',
+//		  data: { username:phoneNumber.value},    
+//		/*  async: false,  
+//		  xhrFields: {  
+//		      withCredentials: true  
+//		  },  */
+//		  success: function (data){   
+//			  if(data.status==1){
+//				  
+//		     }else if(data.status==2){
+//		    	 console.log("参数不合法！");
+//		     }
+//		  }
+//		});
+//}
 
 
 
@@ -73,19 +57,41 @@ getVerificationCode.onclick = function(){
         return;
     }
     
-    $.ajax({
-        type:"post",
-        url: url+"/sendMessageVerifyCode.action",
-        data: {username:phone},
-        dataType:"text",
-        async: false,  
-        xhrFields: {  
-            withCredentials: true  
-        },  
-        success: function (data) {
-            console.log(data);
-        }
-    });
+    if(switchs==true){
+   	 $.ajax({
+      	  type: 'get',
+      	  url: url + '/checkUsername.action',
+      	  contentType:'application/json',
+      	  data: { username:phoneNumber.value},    
+      	/*  async: false,  
+      	  xhrFields: {  
+      	      withCredentials: true  
+      	  },  */
+      	  success: function (data){   
+      		  if(data.status==0){
+      		    $.ajax({
+      		        type:"post",
+      		        url: url+"/sendMessageVerifyCode.action",
+      		        data: {username:phone},
+      		        dataType:"text",
+      		        async: false,  
+      		        xhrFields: {  
+      		            withCredentials: true  
+      		        },  
+      		        success: function (data) {
+      		            console.log(data);
+      		        }
+      		    });
+      		  }else if(data.status==1){
+      			document.getElementById('check-phoneNumber').innerHTML='当前用户已经存在';
+      			 document.getElementById('check-phoneNumber').className = 'show';
+      			  return;
+      	     }else if(data.status==2){
+      	    	 console.log("参数不合法！");
+      	     }
+      	  }
+      	});
+   }
 }
 //验证密码（第一次）
 var passwdfirst = document.getElementById("passwdfirst");
@@ -124,7 +130,8 @@ VerificationCodeInput.onchange = function(){
     }
     document.getElementById('check-VerificationCodeInput').className = 'hidden';    
     code = VerificationCodeInput.value;
-    $.ajax({
+    user.verifyCode=code;
+/*    $.ajax({
         type: 'post',
         url: url+"/checkout.action",
         data: {verifyCode:code},
@@ -141,9 +148,8 @@ VerificationCodeInput.onchange = function(){
             }
             document.getElementById('check-VerificationCodeInputError').className = 'hidden';
         }
-    });
+    });*/
 }
-
 //提交
 var submit = document.getElementById('submit');
 submit.onclick = function(){
@@ -165,24 +171,29 @@ submit.onclick = function(){
         alert('请保证两次密码一致');
         return;        
     }
-    console.log(user);
+   
     $.ajax({
         type: 'post',
         url: url+"/regist.action",
-        data: JSON.stringify(user),
-        dataType:"text",
+        /*data: JSON.stringify(user),*/
+        data:{
+        	username:user.username,
+        	password:user.password,
+        	verifyCode:user.verifyCode },
+    	dataType:"json",
         async: false,  
         xhrFields: {  
             withCredentials: true  
         },  
-         contentType: "application/json",
-        success: function (data) {
-            if(data){
-            	alert("注册成功！");
-            	 window.location.href="Login.html";
-            }else{
-            	alert("注册失败！");
-            }
+        success: function (result) {
+        		
+        	  if(result.status==1){
+        		  document.getElementById('check-VerificationCodeInputError').innerHTML=result.msg;
+                  document.getElementById('check-VerificationCodeInputError').className = 'show';
+                  return;
+              }
+              document.getElementById('check-VerificationCodeInputError').className = 'hidden';
+              window.location.href="Login.html";
         }
     })
 }

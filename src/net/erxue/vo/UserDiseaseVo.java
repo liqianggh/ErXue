@@ -1,7 +1,9 @@
 package net.erxue.vo;
 
-import net.erxue.po.UserDisease;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import net.erxue.po.UserDisease;
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class UserDiseaseVo extends UserDisease {
 
 	private String time;

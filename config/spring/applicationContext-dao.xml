@@ -24,8 +24,9 @@
 		<property name="url" value="${db.url}"></property>
 		<property name="username" value="${db.username}"></property>
 		<property name="password" value="${db.password}"></property>
-		<property name="maxActive" value="100" />
-		<property name="maxIdle" value="5" />
+		<property name="maxActive" value="300"/>
+	    <property name="initialSize" value="30"/>  
+		<property name="maxIdle" value="10" />
 	</bean>
 
 	<!-- 配置sqlsessionfactory -->
@@ -44,5 +45,4 @@
 		<property name="basePackage" value="net.erxue.mapper"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
-
 </beans>

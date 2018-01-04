@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.erxue.common.ResponseCode;
+import net.erxue.common.ServerResponse;
 import net.erxue.others.messageQQ.lib.SmsSingleSenderResult;
 import net.erxue.po.User;
 import net.erxue.po.UserCustom;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mysql.jdbc.StringUtils;
@@ -47,13 +50,11 @@ public class UserController {
 		}
 		User user = null;
 		user = userService.login(userParam);
-		
 System.out.println(user+"登陆");
 		if(user!=null){
 			session.setAttribute("user", user);
 			return true;
 		}else{
-			
 			return false;
 		}
 	}
@@ -64,30 +65,22 @@ System.out.println(user+"登陆");
 	 * regist.action
 	 * @param userCustom (username password)  
 	 * @return boolean
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="/regist.action",method={RequestMethod.POST})
-	public @ResponseBody boolean regist(@RequestBody User user,
-			HttpSession session,HttpServletResponse response) throws IOException{
- System.out.println(user+"接收到的参数");
- System.out.println("regist.actionz中的session对象"+session);
-		if(user==null||user.getUsername()==null||user.getPassword()==null){
-			return false;
+	public @ResponseBody ServerResponse regist( User user, String verifyCode,
+			HttpSession session) throws Exception{
+		if(user==null||user.getUsername()==null||user.getPassword()==null||verifyCode==null){
+			return ServerResponse.createByErrorMessage("数据输入有误！");
 		}
-		
-		Boolean verifyResult = (Boolean) session.getAttribute("verifyResult");
-		if(verifyResult==null||verifyResult==false){
-			return false;
+		if(!userService.chechUsername(user.getUsername())){
+			ServerResponse.createByErrorMessage("用户名已经被注册!");	
 		}
-		//验证后移除
-		session.removeAttribute("verifyResult");
-		boolean result=false;
-		try {
-		 result= userService.registUser(user);
-		} catch (Exception e) {
-			System.out.println("注册报错！");
-			e.printStackTrace();
+		String verifyCodeO =  (String) session.getAttribute("verifyCodeO");
+		if(verifyCodeO==null||verifyCodeO.length()<1||(!verifyCodeO.equals(verifyCode))){
+			return ServerResponse.createByErrorMessage("验证码错误！");
 		}
-		return result;
+		return userService.registUser(user);
 	}
 	
 	
@@ -108,82 +101,34 @@ System.out.println("发送验证码的session"+session);
 		try {
 //			result = userService.sendMessage(username);
 //			session.setAttribute("verifyCode", result.getExt());
-			session.setAttribute("verifyCode", "666666");
+			session.setAttribute("verifyCodeO", "666666");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 //		 return result.getResult();
 		
-		return 666666;
-	}
-	/**
-	 * 校验验证码（短信和图片都可以）
-	 * checkout.action
-	 * @param verifyCode
-	 * @return boolean
-	 */
-	@RequestMapping(value="checkout.action" ,method={RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody boolean checkout( String verifyCode,HttpSession session){
-System.out.println("接收到的数据"+verifyCode);
-System.out.println("检验证码的session"+session);
-		//获取验证码
-		String verifyCodeInSession = (String) session.getAttribute("verifyCode");
-System.out.println("session中的验证吗"+verifyCodeInSession);
-		//session.removeAttribute("verifyCode");
-		if(verifyCode==null||verifyCode==""||verifyCode.length()<4){
-			return false;
-		}
-		if(verifyCode.equalsIgnoreCase(verifyCodeInSession)){
-			session.setAttribute("verifyResult", true);
-			return true;
-		}else{
-			session.setAttribute("verifyResult", false);
-			return false;
-		}
-	}
-	
-	/**
-	 * 获取验证码图片
-	 * getVerifyCode.action
-	 */
-	@RequestMapping(value="/getVerifyCode.action",method={RequestMethod.GET,RequestMethod.POST})
-	public void getVerifyCode(HttpServletResponse response,HttpSession session){
-		VerifyCode verifyCode  = new VerifyCode();
-		//必须先生成图片在生成验证码
-		BufferedImage image = verifyCode.getImage();
-		String code = verifyCode.getText();
-		//输出到页面
-		try {
-			 session.removeAttribute("verifyCode");
-			session.setAttribute("verifyCode", code);
-			VerifyCode.output(image, response.getOutputStream());
-		} catch (IOException e) {
-			System.out.println("验证码出错了！");
-			e.printStackTrace();
-		}
+		return 0;
 	}
  
 	/**
 	 * 校验用户名是否已经注册
 	 * checkUsername.action
-	 * @param username
-	 * @return boolean（如果用户名可用返回true，返回false表示已经注册）
 	 */
 	@RequestMapping(value="checkUsername.action",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody boolean checkUsername(@RequestBody String username){
-System.out.println(username+"接收到的username");
-		Boolean flag=false;
+	public @ResponseBody ServerResponse  checkUsername(@RequestParam("username")String username){
+		 boolean flag = false;
 		try {
 			if(username==null||username.length()<1){
-				return flag;
+				return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
 			}
-			
 			flag = userService.chechUsername(username);
 		} catch (Exception e) {
-			System.out.println("校验用户名出错");
 			e.printStackTrace();
 		}
-		return flag;
+		if(flag){
+			return ServerResponse.createBySuccess();
+		}
+		return ServerResponse.createByErrorMessage("用户名已经被注册!");
 	}
 	
 }

@@ -59,8 +59,8 @@
 	SELECT * FROM USER WHERE username=#{username} and password=#{password}
 	</select>
 	<!-- 查询用户名是否已经被注册 -->
-	<select id="checkUsernameIsExists" parameterType="string" resultType="User">
-		SELECT * FROM USER WHERE username=#{value}
+	<select id="checkUsernameIsExists" parameterType="string" resultType="int">
+		SELECT count(1) FROM USER WHERE username=#{value}
 	</select>
 	
 	<!-- 查询用户所患疾病 -->

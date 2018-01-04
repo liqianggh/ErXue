@@ -33,7 +33,7 @@
 	
 	</select>
 		<select id="findAllAcupoints"  resultType="Acupoint">
-		SELECT * FROM ACUPOINT WHERE acupointid >0 order by modulesId asc
+		SELECT * FROM ACUPOINT WHERE acupointid >0 order by length(acupointName)
 	</select>
 	
 	<!-- 根据穴位名称查询穴位 -->

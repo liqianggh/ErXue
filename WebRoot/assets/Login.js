@@ -23,8 +23,9 @@ passwordInput.onblur = function (){
 
 //提交
 var submit = document.getElementById('submit');
-var url = 'http://111.230.236.54:8080/ErXueSSM'; 
-//var url = 'http://192.168.0.110:8080/ErXueSSM'; 
+//var url = 'http://111.230.236.54:8080/ErXueSSM'; 
+//var url = 'http://localhost:8080/ErXueSSM'; 
+
 var login;
 submit.onclick = function (){
     if(!userInput.username){

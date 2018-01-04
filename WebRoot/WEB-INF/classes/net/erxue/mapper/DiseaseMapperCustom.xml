@@ -55,7 +55,25 @@
 			<result column="videoLocation" property="videoLocation" />
 		</collection>
 	</resultMap>
-
+		<resultMap type="DiseaseSystemAndDiseaseVo" id="diseaseSystem_disease">
+		<!-- 疾病系统 -->
+		<id column="systemId" property="systemId" />
+		<result column="systemName" property="systemName" />
+		<!-- 疾病 -->
+		<collection property="diseaseCategoryList"
+			javaType="DiseaseCategory">
+			<id column="diseaseCategoryId" property="diseaseCategoryId" />
+			<result column="diseaseCategoryName" property="diseaseCategoryName" />
+			<result column="diseaseDescription" property="diseaseDescription" />
+		</collection>
+	</resultMap>
+	<!-- 查询所有疾病系统和他对应的疾病 -->
+	<select id="findAllDiseaseSystemAndDisease" resultMap="diseaseSystem_disease">
+		select ds.*,dc.diseaseCategoryId ,
+			dc.diseaseCategoryName 
+		from diseasesystem ds,diseasecategory dc 
+		where ds.systemId=dc.diseasesystemid  order by length(systemname) asc,length(diseaseCategoryName) asc
+	</select>
 
 	<!-- 查询所有疾病和它对应的穴位 -->
 	<select id="findAllDiseaseCategoryWithAcupoints" resultMap="dieaseCategory_dieaseCategoryAndAcupoint">
@@ -66,7 +84,7 @@
 		FROM
 		diseaseandacupoint da ,acupoint a ,diseaseCategory d
 		where
-		da.acupointid=a.acupointid order by da.acupointId asc ;
+		da.acupointid=a.acupointid order by da.acupointId asc 
 	</select>
 
 	<!-- 查询疾病以及对应的所有穴位ById -->
@@ -80,7 +98,7 @@
 		diseaseandacupoint da ,acupoint a ,diseaseCategory d
 		where
 		da.acupointid=a.acupointid and da.diseaseCategoryId=d.diseaseCategoryId and
-		da.diseaseCategoryId=#{value} order by acupointType asc ;
+		da.diseaseCategoryId=#{value} order by acupointType asc 
 	</select>
 	<!-- 查询所有疾病系统 -->
 	<select id="findAllDiseaseSystems" resultType="DiseaseSystem">
@@ -123,10 +141,13 @@
 		diseaseCategoryId,diseaseCategoryName,diseaseDescription FROM
 		DISEASECATEGORY
 	</select>
-	<!-- 根据id查询分类 -->
+	<!-- 根据id查询疾病 -->
 	<select id="findDiseaseCategoryById" parameterType="int"
 		resultType="DiseaseCategory">
-		SELECT * FROM diseaseCategory WHERE
+		SELECT diseaseCategoryName ,
+		diseaseDescription,
+		diseaseCategoryId 
+		FROM diseaseCategory WHERE
 		diseaseCategoryId=#{diseaseCategoryId}
 	</select>
 

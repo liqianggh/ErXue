@@ -1,7 +1,10 @@
 package net.erxue.po;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 //疾病分类实体类
-public class DiseaseCategory extends BaseBean{
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class DiseaseCategory {
 	private Integer diseaseCategoryId;
 	//类别名
 	private String diseaseCategoryName;

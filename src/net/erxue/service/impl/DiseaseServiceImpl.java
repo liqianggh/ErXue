@@ -10,6 +10,7 @@ import net.erxue.po.DiseaseSystem;
 import net.erxue.po.DiseaseSystemCustom;
 import net.erxue.service.DiseaseService;
 import net.erxue.vo.DiseaseCategoryAndAcupointUpload;
+import net.erxue.vo.DiseaseSystemAndDiseaseVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -153,6 +154,12 @@ public class DiseaseServiceImpl implements DiseaseService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<DiseaseSystemAndDiseaseVo> findDiseaseSystemAndDisease()
+			throws Exception {
+		return diseaseMapper.findAllDiseaseSystemAndDisease();
 	}
 
 }

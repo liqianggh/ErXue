@@ -26,39 +26,37 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public @ResponseBody boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response ,Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		String url = request.getRequestURI();
-		System.out.println(url+"请求的url");
-		User user =(User) session.getAttribute("user");
-		System.out.println("session中的user"+user);
-		//放行的东西
-				if(url.indexOf("Login")>=0||url.indexOf("login")>0||url.indexOf("assets")>0){
-					return true;
-				}
-		if(user==null){
-System.out.println("哈哈哈"+user);
-			response.setHeader("aaa", "ccc");
-			 response.setHeader("sessionStatus", "timeout");
-			 response.sendError(666, "session timeout.");
-			return false;
-		} 
-		
-		
-		//看看是不是ajax请求
-	 	String requestType = request.getHeader("X-Requested-With");
-		if(requestType != null && "XMLHttpRequest".equalsIgnoreCase(requestType.trim())) {
-			if(url.contains("user/")){
-System.out.println("拦截器执行了"+user);
-				if(user==null){
-					 response.setHeader("sessionStatus", "timeout");
-					 response.sendError(666, "session timeout.");
-					return false;
-				}else{
-					return true;
-				}
-			}
-		    return true;
-		} 
-	
+//		String url = request.getRequestURI();
+//		System.out.println(url+"请求的url");
+//		User user =(User) session.getAttribute("user");
+//		System.out.println("session中的user"+user);
+//		//放行的东西
+//				if(url.indexOf("Login")>=0||url.indexOf("login")>0||url.indexOf("assets")>0){
+//					return true;
+//				}
+//		if(user==null){
+//			response.setHeader("aaa", "ccc");
+//			 response.setHeader("sessionStatus", "timeout");
+//			 response.sendError(666, "session timeout.");
+//			return false;
+//		} 
+//		
+//		
+//		//看看是不是ajax请求
+//	 	String requestType = request.getHeader("X-Requested-With");
+//		if(requestType != null && "XMLHttpRequest".equalsIgnoreCase(requestType.trim())) {
+//			if(url.contains("user/")){
+//				if(user==null){
+//					 response.setHeader("sessionStatus", "timeout");
+//					 response.sendError(666, "session timeout.");
+//					return false;
+//				}else{
+//					return true;
+//				}
+//			}
+//		    return true;
+//		} 
+//	
 		return true;
 	}
 	//

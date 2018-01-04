@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp">
-  <link rel="icon" type="image/png" href="assets/i/favicon.png">
-  <link rel="stylesheet" href="assets/css/amazeui.min.css">
-  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="icon" type="image/png" href="http://p0s975v7y.bkt.clouddn.com/i/favicon.png">
+  <link rel="stylesheet" href="http://p0s975v7y.bkt.clouddn.com/css/amazeui.min.css">
+  <link rel="stylesheet" href="http://p0s975v7y.bkt.clouddn.com/css/app.css">
   <style type="text/css">
     .btn-secondary:hover {
     background: #10a4ef;
@@ -65,45 +65,62 @@ label{
       left:50px;
       position:absolute;
     }
-    .am-icon-home{
+    .am-icon-back{
       display: block;
       float: left;
       margin-top: 1em;
       color: #fff;
     }
-    .am-icon-home:hover{
+    .am-icon-back:hover{
+      cursor: pointer;
+    }
+    
+            .am-icon-bars{
+      display: block;
+      float: right;
+      margin-top: 1em;
+      color: #fff;
+    }
+    .am-icon-bars:hover{
       cursor: pointer;
     }
 </style>
 </head>
 <body class="am-with-fixed-navbar">
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器， 不提供支持。 请 <a
-  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
-
 
     <header data-am-widget="header" class="am-header am-header-default">
-        <a href="widget.html"><i class="am-icon-home"></i></a>
+      <a href="widget.html"><img class="am-icon-back" src="http://p0s975v7y.bkt.clouddn.com/i/back.png" width="20px" height="20px"></a>
+     	<i class="am-icon-bars" data-am-offcanvas="{target: '#bars'}"></i>
       <h1 class="am-header-title">
             我的咨询
       </h1>
   </header>
-
-  <!--  -->
-<!-- 
-   -->
+  <div id="bars" class="am-offcanvas">
+      <div class="am-offcanvas-bar">
+        <div class="am-offcanvas-content">
+          <div class="toux">
+            <img src="#">
+          </div>
+          <p>用户名</p>
+          <ul id="tab">
+            <li class="am-icon-commenting-o"><a href="widget7.html">&nbsp&nbsp&nbsp评论</a></li>
+            <li class="am-icon-hand-paper-o"><a href="widget6.html">&nbsp&nbsp&nbsp提问</a></li>
+            <li class="am-icon-search"><a href="">&nbsp&nbsp&nbsp查询</a></li>
+          </ul>
+          <a href="#" class="am-icon-gear set">&nbsp&nbsp&nbsp设置</a>
+        </div>
+      </div>
+    </div>
   <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
   <!--列表标题-->
     <div class="am-list-news-bd">
     <ul class="am-list">
 
       <li class="am-g am-list-item-desced">
-          <a href="widget6_page1.html" class="am-list-item-hd ">待回复<i class="tip"></i></a>
+          <a href="widget6_page1.html" class="am-list-item-hd ">待回复的问题<!-- <i class="tip"></i> --></a>
       </li>
       <li class="am-g am-list-item-desced">
-          <a href="widget6_page2.html" class="am-list-item-hd ">已回复<i class="tip"></i></a>
+          <a href="widget6_page2.html" class="am-list-item-hd ">已回复的问题<!-- <i class="tip"></i> --></a>
       </li>
   </ul>
   </div>
@@ -124,9 +141,9 @@ label{
               </a>
             </li>
             <li>
-              <a href="widget8.html" class="">
+              <a href="widget6-1.html" class="">
                     <span class="am-icon-male"></span>
-                  <span class="am-navbar-label">我的资料</span>
+                  <span class="am-navbar-label">我的咨询</span>
               </a>
             </li>
         </ul>
@@ -148,10 +165,8 @@ label{
       </div>
       <div class="am-footer-miscs ">
   
-            <!-- <p>由 <a href="www.erxue.net" title="上官衍鹏" target="_blank" class="">上官衍鹏</a>
-              提供技术支持</p> -->
-          <p>CopyRight©2017  耳穴 Inc.</p>
-          <!-- <p>京ICP备15098725z</p> -->
+           
+          <p>CopyRight©2017  宜健康 Inc.</p>
       </div>
     </footer>
   
@@ -173,11 +188,11 @@ label{
 
 
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.js"></script>
-<script src="assets/js/handlebars.min.js"></script>
-<script src="assets/js/amazeui.widgets.helper.js"></script>
-<script src="assets/js/url.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/jquery.min.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/amazeui.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/handlebars.min.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/amazeui.widgets.helper.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/url.js"></script>
 
 
 </body>

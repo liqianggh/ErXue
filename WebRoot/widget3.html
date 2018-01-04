@@ -2,15 +2,15 @@
 <html class="am-touch js cssanimations"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title id="main-title">分类下具体疾病</title>
+  <title id="main-title">疾病介绍与治疗</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp">
-  <link rel="icon" type="image/png" href="assets/i/favicon.png">
-  <link rel="stylesheet" href="assets/css/amazeui.min.css">
-  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="icon" type="image/png" href="http://p0s975v7y.bkt.clouddn.com/i/favicon.png">
+  <link rel="stylesheet" href="http://p0s975v7y.bkt.clouddn.com/css/amazeui.min.css">
+  <link rel="stylesheet" href="http://p0s975v7y.bkt.clouddn.com/css/app.css">
   <style type="text/css">
     .zhiding{
         position: fixed;
@@ -65,13 +65,13 @@
       overflow: hidden;
       float: left;
     }
-    .am-icon-home{
+    .am-icon-back{
       display: block;
       float: left;
       margin-top: 1em;
       color: #fff;
     }
-    .am-icon-home:hover{
+    .am-icon-back:hover{
       cursor: pointer;
     }
     video{
@@ -86,42 +86,17 @@
   </style>
 </head>
 <body class="am-with-fixed-navbar">
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器， 不提供支持。 请 <a
-  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
-
-
     <header data-am-widget="header" class="am-header am-header-default am-no-layout zhiding">
-        <a href="widget.html"><i class="am-icon-home"></i></a>
-        <i class="am-icon-bars" data-am-offcanvas="{target: '#bars'}"></i>
+        <a href="widget10.html">
+        <img class="am-icon-back" src="http://p0s975v7y.bkt.clouddn.com/i/back.png" width="20px" height="20px">
+        </a>
         <h1 class="am-header-title">
-           疾病详情
+           疾病介绍与治疗
         </h1>
-  
     </header>
-    <div id="bars" class="am-offcanvas">
-      <div class="am-offcanvas-bar">
-        <div class="am-offcanvas-content">
-          <div class="toux">
-            <img src="#">
-          </div>
-          <p class="username">用户名</p>
-          <ul id="tab">
-            <li class="am-icon-commenting-o"><a href="widget7.html">&nbsp&nbsp&nbsp评论</a></li>
-            <li class="am-icon-hand-paper-o"><a href="widget6.html">&nbsp&nbsp&nbsp提问</a></li>
-            <li class="am-icon-search"><a href="">&nbsp&nbsp&nbsp查询</a></li>
-          </ul>
-          <a href="#" class="am-icon-gear set">&nbsp&nbsp&nbsp设置</a>
-        </div>
-      </div>
-    </div>
-  <!--  -->
-<!-- 
-   --> <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+  <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
    <div class="main-class"> 
-
+		
       
    </div>
  <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
@@ -139,10 +114,10 @@
                   <span class="am-navbar-label">一键咨询</span>
               </a>
             </li>
-            <li>
-              <a href="widget8.html" class="">
+               <li>
+              <a href="widget6-1.html" class="">
                     <span class="am-icon-male"></span>
-                  <span class="am-navbar-label">我的资料</span>
+                  <span class="am-navbar-label">我的咨询</span>
               </a>
             </li>
         </ul>
@@ -181,101 +156,40 @@
 
 
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.js"></script>
-<script src="assets/js/handlebars.min.js"></script>
-<script src="assets/js/amazeui.widgets.helper.js"></script>
-<script src="assets/js/url.js"></script>
-<!--  <script src="http://192.168.0.110:8080/ErXueSSM/user/findDiseaseCategoryWithAcupointsById.action">
-	
-</script> --> 
-<script>
-var otop = document.getElementsByClassName('zhiding')[0];
-//用localStorage带来的disease参数
-//console.log(localStorage.diseaseDescription);
-$('.main-class').append('<p class="main-class-attention"><span class="main-class-span">疾病描述:</span>'+localStorage.diseaseDescription+'</p><button class="btn am-btn-primary">查看治疗方案</button>');
- otop.onclick = function(){
-  window.scrollTo(0,0);
- }
- //findDiseaseCategoryBySystemId.action
- var dId=window.location.href.split('=',2)[1];
-
- //下面打算按钮点击权限发送ajax
-
-$('.btn').click(function() {
-/*  var x = confirm("温馨提示:"
- + "进入前请确定您已经拥有查看该疾病的权限，否则会消耗一次机会。新注册用户默认有两次机会！");
- if(x==false){
- 	return ;
- } */
+<script src="http://p0s975v7y.bkt.clouddn.com/js/jquery.min.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/amazeui.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/handlebars.min.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/amazeui.widgets.helper.js"></script>
+<script src="http://p0s975v7y.bkt.clouddn.com/js/url.js"></script>
+<!-- <script type="text/javascript">
+ function launchFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  } else if (element.oRequestFullscreen) {
+    element.oRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullScreen();
+  } else {
+    var docHtml = document.documentElement;
+    var docBody = document.body;
+    var videobox = document.getElementById('videobox');
+    var cssText = 'width:100%;height:100%;overflow:hidden;';
+    docHtml.style.cssText = cssText;
+    docBody.style.cssText = cssText;
+    videobox.style.cssText = cssText + ';' + 'margin:0px;padding:0px;';
+    document.IsFullScreen = true;
+  }
+}
  
-  $.ajax({
-    url: url+'/ErXueSSM/user/findDiseaseCategoryWithAcupointsById.action',
-    type: 'POST',
-    dataType: '',
-    data: {diseaseCategoryId: dId},
-    success:function(data){
-      console.log(data);
-      var mod=[]; 
-      var arr=[];
-      var vid=[];
-      var vad=[];
-      
-      $('.main-class').append('<p class="main-class-attention"><span class="main-class-span">治疗方案：</span>'+data.attention+'</p>');
-      //diseaseDescription
-      
-      $('#main-title').text(data.diseaseCategoryName);
-      $('.am-header-title').text(data.diseaseCategoryName);
-      for(var i=0;i<data.diseaseCategoryAndAcupointList.length;i++){
-        if(data.diseaseCategoryAndAcupointList[i].acupointType==='主穴'){
-        mod.push(data.diseaseCategoryAndAcupointList[i].acupointName);
-        vid.push(data.diseaseCategoryAndAcupointList[i].videoLocation);//vid主穴视频，vad配穴视频
-        }
-       else{
-        arr.push(data.diseaseCategoryAndAcupointList[i].acupointName);
-        vad.push(data.diseaseCategoryAndAcupointList[i].videoLocation);
-        }//判断主配穴
-      }
-     // console.log(vid);
-     // console.log(vad);
-      $('.main-class ').append('<a><p>主穴:'+mod+'</p></a>');
-      var num=0;
-      //console.log((vid[6]));
-     for (var i = 0; i < mod.length/4; i++) {
-      if(typeof(vid[num])=="undefined"){
-        console.log('1');
-        break;
-      }else if(typeof(vid[num+1])=="undefined"){$('.main-class').append('<video src='+url+vid[num]+'  width=70rem controls="controls"></video><p><span class="fl">'+mod[num]+'</span></p>');console.log('1');break;
-      }else if(typeof(vid[num+2])=="undefined"){$('.main-class').append('<video src='+url+vid[num]+'  width=70rem controls="controls"></video><video src='+url+vid[num+1]+' width=70rem controls="controls"></video><p><span class="fl">'+mod[num]+'</span><span class="fr">'+mod[num+1]+'</span></p>');console.log('1');break;
-      }else if(typeof(vid[num+3])=="undefined"){
-        $('.main-class').append('<video src='+url+vid[num]+'  width=70rem controls="controls"></video><video src='+url+vid[num+1]+' width=70rem controls="controls"></video><video src='+url+vid[num+2]+' width=70rem controls="controls"></video><p><span class="fl">'+mod[num]+'</span><span class="fr">'+mod[num+1]+'</span><span class="fr">'+mod[num+2]+'</span></p>');console.log('1');break;
-      }else{
-      $('.main-class').append('<video src='+url+vid[num]+'  width=70rem controls="controls"></video><video src='+url+vid[num+1]+' width=70rem controls="controls"></video><video src='+url+vid[num+2]+' width=70rem controls="controls"></video><video src='+url+vid[num+3]+' width=70rem controls="controls"></video><p><span class="fl">'+mod[num]+'</span><span class="fr">'+mod[num+1]+'</span><span class="fr">'+mod[num+2]+'</span><span class="fr">'+mod[num+3]+'</span></p>');
-    
-      num=num+4;
-      }
-    }
-    //插入主穴视频以及文字
-      $('.main-class ').append('<a><p>配穴:'+arr+'</p></a>');
-      var num1=0;
-      for (var i = 0; i < arr.length/4; i++) {
-      if(typeof(vad[num1])=="undefined"){
-        console.log('1');
-        break;
-      }else if(typeof(vad[num1+1])=="undefined"){$('.main-class').append('<video src='+url+vad[num1]+'  width=70rem controls="controls"></video><p><span class="fl">'+arr[num1]+'</span></p>');console.log('1');break;
-      }else if(typeof(vad[num1+2])=="undefined"){$('.main-class').append('<video src='+url+vad[num1]+'  width=70rem controls="controls"></video><video src='+url+vad[num1+1]+' width=70rem controls="controls"></video><p><span class="fl">'+arr[num1]+'</span><span class="fr">'+arr[num1+1]+'</span></p>');console.log('1');break;
-      }else if(typeof(vad[num1+3])=="undefined"){
-        $('.main-class').append('<video src='+url+vad[num1]+'  width=70rem controls="controls"></video><video src='+url+vad[num1+1]+' width=70rem controls="controls"></video><video src='+url+vad[num1+2]+' width=70rem controls="controls"></video><p><span class="fl">'+arr[num1]+'</span><span class="fr">'+arr[num1+1]+'</span><span class="fr">'+arr[num1+2]+'</span></p>');console.log('1');break;
-      }else{
-      $('.main-class').append('<video src='+url+vad[num1]+'  width=70rem controls="controls"></video><video src='+url+vad[num1+1]+' width=70rem controls="controls"></video><video src='+url+vad[num1+2]+' width=70rem controls="controls"></video><video src='+url+vad[num1+3]+' width=70rem controls="controls"></video><p><span class="fl">'+arr[num1]+'</span><span class="fr">'+arr[num1+1]+'</span><span class="fr">'+arr[num1+2]+'</span><span class="fr">'+arr[num1+3]+'</span></p>');
-    
-      num1=num1+4;
-      }
-    }
-    }
-  });
-  $('.btn').css('display', 'none');
-});
-</script>
+launchFullscreen(document.getElementById('video'));
+ 
+</script> -->
+<!-- <script type="text/javascript" src="http://p0s975v7y.bkt.clouddn.com/widget3.js"></script>
+ --> 
+<script type="text/javascript" src="assets/js/widget3.js"></script>
 </body>
 </html>

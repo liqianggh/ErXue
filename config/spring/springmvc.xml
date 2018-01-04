@@ -67,7 +67,13 @@
 		</property>
 	</bean>
 	
-	
+<!-- <mvc:annotation-driven>  
+    <mvc:message-converters register-defaults="true">  
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+            <property name="supportedMediaTypes" value = "text/html;charset=UTF-8" />  
+        </bean>  
+    </mvc:message-converters>  
+</mvc:annotation-driven>   -->
 	<!-- 跨域拦截器??不行 -->
 	<mvc:interceptors>
 	  <mvc:interceptor>

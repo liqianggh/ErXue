@@ -10,6 +10,7 @@ import net.erxue.po.DiseaseCategoryCustom;
 import net.erxue.po.DiseaseSystem;
 import net.erxue.po.DiseaseSystemCustom;
 import net.erxue.vo.DiseaseCategoryAndAcupointUpload;
+import net.erxue.vo.DiseaseSystemAndDiseaseVo;
 
 public interface DiseaseService {
 
@@ -23,9 +24,8 @@ public interface DiseaseService {
 	public List<DiseaseCategory> findDiseaseCategoryBySystemId(Integer systemId)throws  Exception;
 	//根据疾病分类id查询所对应的学位
 	public DiseaseCategoryCustom findDiseaseCategoryWithAcupointsById(Integer DiseaseCategoryId)throws Exception;
-	
-	
-	
+	public List<DiseaseSystemAndDiseaseVo> findDiseaseSystemAndDisease()throws Exception;
+
 	//添加疾病系统
 	public void addDiseaseSystem(DiseaseSystemCustom diseaseSytem) throws Exception;
 	//添加疾病分类
@@ -51,7 +51,6 @@ public interface DiseaseService {
 			DiseaseCategoryAndAcupointUpload diseaseAcupoints)throws Exception;
 	public boolean deleteDiseaseCategory(Integer diseaseCategoryId)throws Exception;
 	public boolean deleteAcupointOfDisease(Integer id) throws Exception;
-	
 	
 	
 	

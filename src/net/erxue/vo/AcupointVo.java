@@ -3,9 +3,11 @@ package net.erxue.vo;
 
 import java.util.List;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import net.erxue.po.Acupoint;
 
-
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class AcupointVo extends Acupoint{
 
 	private String url;

@@ -9,6 +9,7 @@ import net.erxue.po.DiseaseCategoryCustom;
 import net.erxue.po.DiseaseSystem;
 import net.erxue.po.DiseaseSystemCustom;
 import net.erxue.vo.DiseaseCategoryAndAcupointUpload;
+import net.erxue.vo.DiseaseSystemAndDiseaseVo;
 
 public interface DiseaseMapperCustom {
 	
@@ -34,6 +35,8 @@ public interface DiseaseMapperCustom {
 	public List<DiseaseCategoryCustom> findAllDiseaseCategoryWithAcupoints()throws Exception;
 	//根据疾病分类查询疾病和它所对应的穴位
 	public  DiseaseCategoryCustom findDiseaseCategoryWithAcupointsById(Integer diseaseCategoryId)throws Exception;
+	
+	public List<DiseaseSystemAndDiseaseVo> findAllDiseaseSystemAndDisease()throws Exception;
 	
 	//修改疾病系统
 	public void updateDiseaseSystem(DiseaseSystem diseaseSystem )throws Exception;

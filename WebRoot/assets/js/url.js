@@ -1,5 +1,8 @@
-var url='http://111.230.236.54:8080'; 
-//var url='http://192.168.0.110:8080'; 
+//$(".am-icon-back").bind("click",function(){
+//  window.history.go(-1);
+//});
+var url = 'http://58.87.104.109:8080'
+//var url='http://localhost:8080'; 
 //设置Ajax请求的全局默认options
 $.ajaxSetup({
   type:'post',

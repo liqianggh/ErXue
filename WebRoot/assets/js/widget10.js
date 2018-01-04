@@ -3,80 +3,57 @@ var link;
 var mods;
 var allData=[];
 
-$.ajax({
-	url: url + '/ErXueSSM/findAllDiseaseSystem.action',
-	type: 'GET',
-	dataType: '',
-	data: '',
-    async: false,  
-    xhrFields: {  
-        withCredentials: true  
-    },  
-	success: function(data1) {
-		var arr = [];
-		var mod = [];
-		timer = data1.length;
-		console.log(data1);
+//$.ajax({
+//	url: url + '/ErXueSSM/findAllDiseaseSystemWithDisease.action',
+//	type: 'GET',
+//	dataType: 'json',
+//	data: '',
+//	 contentType:"application/x-www-form-urlencoded;charset=UTF-8", 
+//	 
+//     error: function(XMLHttpRequest, textStatus, errorThrown) {
+//                        alert(XMLHttpRequest.status);
+//                        alert(XMLHttpRequest.readyState);
+//                        alert(textStatus);
+//                    },
+//	success: function(data1) {
 
+window.onload=function(){
+	data1 = [{systemId:9,systemName:"皮肤病",diseaseCategoryList:[{diseaseCategoryId:130,diseaseCategoryName:"脱发"},{diseaseCategoryId:127,diseaseCategoryName:"湿疹"},{diseaseCategoryId:120,diseaseCategoryName:"荨麻疹"},{diseaseCategoryId:126,diseaseCategoryName:"酒渣鼻"},{diseaseCategoryId:124,diseaseCategoryName:"扁平疣"},{diseaseCategoryId:122,diseaseCategoryName:"黄褐斑"},{diseaseCategoryId:121,diseaseCategoryName:"带状疱疹"},{diseaseCategoryId:206,diseaseCategoryName:"皮肤瘙痒症"},{diseaseCategoryId:119,diseaseCategoryName:"神经性皮炎"},{diseaseCategoryId:135,diseaseCategoryName:"结节性痒疹"},{diseaseCategoryId:133,diseaseCategoryName:"脂溢性皮炎"},{diseaseCategoryId:132,diseaseCategoryName:"接触性皮炎"},{diseaseCategoryId:123,diseaseCategoryName:"痤疮（粉刺）"},{diseaseCategoryId:129,diseaseCategoryName:"单纯性疱疹（热疮）"}]},{systemId:2,systemName:"眼科疾病",diseaseCategoryList:[{diseaseCategoryId:34,diseaseCategoryName:"近视"},{diseaseCategoryId:39,diseaseCategoryName:"弱视"},{diseaseCategoryId:42,diseaseCategoryName:"角膜炎"},{diseaseCategoryId:35,diseaseCategoryName:"青光眼"},{diseaseCategoryId:38,diseaseCategoryName:"眼睑痉挛"},{diseaseCategoryId:31,diseaseCategoryName:"急性结膜炎"},{diseaseCategoryId:40,diseaseCategoryName:"老年性白内障"},{diseaseCategoryId:33,diseaseCategoryName:"球结核膜出血"},{diseaseCategoryId:36,diseaseCategoryName:"中心性视网膜炎"},{diseaseCategoryId:41,diseaseCategoryName:"屈光不正、眉心痛"},{diseaseCategoryId:37,diseaseCategoryName:"视神经炎、视神经萎缩"},{diseaseCategoryId:32,diseaseCategoryName:"睑腺炎（麦粒肿、针眼）"}]},{systemId:7,systemName:"外科疾病",diseaseCategoryList:[{diseaseCategoryId:95,diseaseCategoryName:"痔疮"},{diseaseCategoryId:94,diseaseCategoryName:"脱肛"},{diseaseCategoryId:204,diseaseCategoryName:"丹毒"},{diseaseCategoryId:100,diseaseCategoryName:"疖痈"},{diseaseCategoryId:96,diseaseCategoryName:"阑尾炎"},{diseaseCategoryId:205,diseaseCategoryName:"淋巴结炎"},{diseaseCategoryId:99,diseaseCategoryName:"急性蜂窝（组）织炎"}]},{systemId:13,systemName:"妇产科疾病",diseaseCategoryList:[{diseaseCategoryId:173,diseaseCategoryName:"带症"},{diseaseCategoryId:165,diseaseCategoryName:"痛经"},{diseaseCategoryId:177,diseaseCategoryName:"缺乳"},{diseaseCategoryId:180,diseaseCategoryName:"乳腺炎"},{diseaseCategoryId:172,diseaseCategoryName:"附件炎"},{diseaseCategoryId:171,diseaseCategoryName:"卵巢炎"},{diseaseCategoryId:181,diseaseCategoryName:"不孕症"},{diseaseCategoryId:168,diseaseCategoryName:"宫颈炎"},{diseaseCategoryId:174,diseaseCategoryName:"盆腔炎"},{diseaseCategoryId:178,diseaseCategoryName:"妊娠呕吐"},{diseaseCategoryId:164,diseaseCategoryName:"月经不调"},{diseaseCategoryId:170,diseaseCategoryName:"输卵管炎"},{diseaseCategoryId:176,diseaseCategoryName:"子宫脱垂"},{diseaseCategoryId:182,diseaseCategoryName:"子宫肌瘤"},{diseaseCategoryId:169,diseaseCategoryName:"子宫内膜炎"},{diseaseCategoryId:179,diseaseCategoryName:"乳腺小叶增生"},{diseaseCategoryId:175,diseaseCategoryName:"更年期综合症"},{diseaseCategoryId:166,diseaseCategoryName:"月经过少、闭经"},{diseaseCategoryId:167,diseaseCategoryName:"月经过多、功能性子宫出血"}]},{systemId:1,systemName:"运动系统疾病",diseaseCategoryList:[{diseaseCategoryId:2,diseaseCategoryName:"落枕"},{diseaseCategoryId:3,diseaseCategoryName:"肩周炎"},{diseaseCategoryId:17,diseaseCategoryName:"颈椎病"},{diseaseCategoryId:16,diseaseCategoryName:"足底痛"},{diseaseCategoryId:27,diseaseCategoryName:"腰肌劳损"},{diseaseCategoryId:23,diseaseCategoryName:"腱鞘囊肿"},{diseaseCategoryId:9,diseaseCategoryName:"肾虚腰痛"},{diseaseCategoryId:6,diseaseCategoryName:"骨关节炎"},{diseaseCategoryId:30,diseaseCategoryName:"尾椎挫伤"},{diseaseCategoryId:29,diseaseCategoryName:"肋软骨炎"},{diseaseCategoryId:28,diseaseCategoryName:"膝关节痛"},{diseaseCategoryId:11,diseaseCategoryName:"骶髂关节炎"},{diseaseCategoryId:21,diseaseCategoryName:"腕管综合症"},{diseaseCategoryId:12,diseaseCategoryName:"坐骨神经痛"},{diseaseCategoryId:22,diseaseCategoryName:"狭窄性腱鞘炎"},{diseaseCategoryId:5,diseaseCategoryName:"类风湿关节炎"},{diseaseCategoryId:13,diseaseCategoryName:"臀部肌纤维炎"},{diseaseCategoryId:19,diseaseCategoryName:"肩背肌纤维炎"},{diseaseCategoryId:4,diseaseCategoryName:"风湿性关节炎"},{diseaseCategoryId:18,diseaseCategoryName:"多发性肌纤维炎"},{diseaseCategoryId:1,diseaseCategoryName:"急性关节扭伤、挫伤"},{diseaseCategoryId:15,diseaseCategoryName:"足跟痛、跟骨骨质增生"},{diseaseCategoryId:20,diseaseCategoryName:"网球肘（高尔夫球肘）"},{diseaseCategoryId:14,diseaseCategoryName:"腓肠肌痉挛（小腿抽筋）"},{diseaseCategoryId:10,diseaseCategoryName:"腰痛（棘间韧带、椎旁韧带劳损）"}]},{systemId:5,systemName:"消化系统疾病",diseaseCategoryList:[{diseaseCategoryId:59,diseaseCategoryName:"呕吐"},{diseaseCategoryId:52,diseaseCategoryName:"便秘"},{diseaseCategoryId:58,diseaseCategoryName:"胃下垂"},{diseaseCategoryId:55,diseaseCategoryName:"食管炎"},{diseaseCategoryId:57,diseaseCategoryName:"消化不良"},{diseaseCategoryId:49,diseaseCategoryName:"慢性胃炎"},{diseaseCategoryId:53,diseaseCategoryName:"反酸、恶心"},{diseaseCategoryId:51,diseaseCategoryName:"十二指肠球炎"},{diseaseCategoryId:64,diseaseCategoryName:"溃疡性结肠炎"},{diseaseCategoryId:50,diseaseCategoryName:"胃、十二指肠溃疡"},{diseaseCategoryId:60,diseaseCategoryName:"慢性腹泻（慢性肠炎）"},{diseaseCategoryId:54,diseaseCategoryName:"膈肌痉挛（呃逆、打呃）"},{diseaseCategoryId:65,diseaseCategoryName:"胆结石、胆囊炎、胆道系统感染"},{diseaseCategoryId:56,diseaseCategoryName:"胃肠道功能紊乱（胃肠神经官能症）"}]},{systemId:12,systemName:"呼吸系统疾病",diseaseCategoryList:[{diseaseCategoryId:161,diseaseCategoryName:"感冒"},{diseaseCategoryId:158,diseaseCategoryName:"支气管炎"},{diseaseCategoryId:159,diseaseCategoryName:"支气管哮喘"},{diseaseCategoryId:163,diseaseCategoryName:"支气管扩张"},{diseaseCategoryId:162,diseaseCategoryName:"胸痛、胸闷、气短"}]},{systemId:3,systemName:"循环系统疾病",diseaseCategoryList:[{diseaseCategoryId:46,diseaseCategoryName:"心肌炎"},{diseaseCategoryId:44,diseaseCategoryName:"低血压病"},{diseaseCategoryId:43,diseaseCategoryName:"高血压病"},{diseaseCategoryId:45,diseaseCategoryName:"心血管神经官能症"}]},{systemId:4,systemName:"血液系统疾病",diseaseCategoryList:[{diseaseCategoryId:48,diseaseCategoryName:"缺铁性贫血"}]},{systemId:6,systemName:"五官科及口腔科疾病",diseaseCategoryList:[{diseaseCategoryId:70,diseaseCategoryName:"耳痛"},{diseaseCategoryId:89,diseaseCategoryName:"牙痛"},{diseaseCategoryId:82,diseaseCategoryName:"喉炎"},{diseaseCategoryId:67,diseaseCategoryName:"耳鸣"},{diseaseCategoryId:91,diseaseCategoryName:"舌痛"},{diseaseCategoryId:78,diseaseCategoryName:"鼻鼾"},{diseaseCategoryId:71,diseaseCategoryName:"耳痒"},{diseaseCategoryId:76,diseaseCategoryName:"鼻咽炎"},{diseaseCategoryId:75,diseaseCategoryName:"鼻窦炎"},{diseaseCategoryId:87,diseaseCategoryName:"牙周炎"},{diseaseCategoryId:90,diseaseCategoryName:"牙龈炎"},{diseaseCategoryId:88,diseaseCategoryName:"牙龈出血"},{diseaseCategoryId:73,diseaseCategoryName:"慢性鼻炎"},{diseaseCategoryId:79,diseaseCategoryName:"扁桃体炎"},{diseaseCategoryId:72,diseaseCategoryName:"耳堵塞感"},{diseaseCategoryId:77,diseaseCategoryName:"嗅觉失灵"},{diseaseCategoryId:83,diseaseCategoryName:"声音嘶哑"},{diseaseCategoryId:81,diseaseCategoryName:"慢性咽喉炎"},{diseaseCategoryId:74,diseaseCategoryName:"过敏性鼻炎"},{diseaseCategoryId:80,diseaseCategoryName:"急性咽喉炎"},{diseaseCategoryId:92,diseaseCategoryName:"舌咽神经痛"},{diseaseCategoryId:66,diseaseCategoryName:"内耳眩晕症"},{diseaseCategoryId:68,diseaseCategoryName:"听力下降、耳聋"},{diseaseCategoryId:69,diseaseCategoryName:"慢性化脓性中耳炎"},{diseaseCategoryId:86,diseaseCategoryName:"颞颌关节紊乱综合征"},{diseaseCategoryId:84,diseaseCategoryName:"咽喉异物感（梅核气）"},{diseaseCategoryId:85,diseaseCategoryName:"复发性口腔溃疡（口疮）"}]},{systemId:11,systemName:"泌尿与生殖系统疾病",diseaseCategoryList:[{diseaseCategoryId:152,diseaseCategoryName:"遗精"},{diseaseCategoryId:150,diseaseCategoryName:"尿频"},{diseaseCategoryId:151,diseaseCategoryName:"尿失禁"},{diseaseCategoryId:143,diseaseCategoryName:"肾结石"},{diseaseCategoryId:149,diseaseCategoryName:"遗尿症"},{diseaseCategoryId:148,diseaseCategoryName:"尿道炎"},{diseaseCategoryId:147,diseaseCategoryName:"膀胱炎"},{diseaseCategoryId:146,diseaseCategoryName:"尿道结石"},{diseaseCategoryId:208,diseaseCategoryName:"慢性肾炎"},{diseaseCategoryId:145,diseaseCategoryName:"膀胱结石"},{diseaseCategoryId:155,diseaseCategoryName:"前列腺炎"},{diseaseCategoryId:209,diseaseCategoryName:"肾盂肾炎"},{diseaseCategoryId:144,diseaseCategoryName:"输尿管结石"},{diseaseCategoryId:156,diseaseCategoryName:"前列腺肥大"},{diseaseCategoryId:153,diseaseCategoryName:"阳痿、早泄"},{diseaseCategoryId:154,diseaseCategoryName:"睾丸炎、附睾丸炎"}]},{systemId:8,systemName:"神经与精神系统疾病",diseaseCategoryList:[{diseaseCategoryId:104,diseaseCategoryName:"头晕"},{diseaseCategoryId:103,diseaseCategoryName:"头痛"},{diseaseCategoryId:102,diseaseCategoryName:"多梦"},{diseaseCategoryId:112,diseaseCategoryName:"抑郁症"},{diseaseCategoryId:109,diseaseCategoryName:"幻肢痛"},{diseaseCategoryId:117,diseaseCategoryName:"多动症"},{diseaseCategoryId:116,diseaseCategoryName:"多汗症"},{diseaseCategoryId:107,diseaseCategoryName:"面肌痉挛"},{diseaseCategoryId:106,diseaseCategoryName:"三叉神经痛"},{diseaseCategoryId:113,diseaseCategoryName:"疲劳综合征"},{diseaseCategoryId:108,diseaseCategoryName:"面神经麻痹"},{diseaseCategoryId:115,diseaseCategoryName:"肋间神经痛"},{diseaseCategoryId:114,diseaseCategoryName:"植物神经功能紊乱"},{diseaseCategoryId:101,diseaseCategoryName:"神经衰弱（失眠）"}]},{systemId:10,systemName:"内分泌和代谢系统疾病",diseaseCategoryList:[{diseaseCategoryId:138,diseaseCategoryName:"尿崩症"},{diseaseCategoryId:137,diseaseCategoryName:"糖尿病"},{diseaseCategoryId:207,diseaseCategoryName:"低血糖症"},{diseaseCategoryId:142,diseaseCategoryName:"高血脂症"},{diseaseCategoryId:139,diseaseCategoryName:"甲状腺功能亢进"},{diseaseCategoryId:141,diseaseCategoryName:"单纯性甲状腺肿"},{diseaseCategoryId:140,diseaseCategoryName:"甲状腺功能减退"}]},{systemId:14,systemName:"耳穴防病,美容,保健",diseaseCategoryList:[{diseaseCategoryId:186,diseaseCategoryName:"戒酒"},{diseaseCategoryId:185,diseaseCategoryName:"戒烟"},{diseaseCategoryId:189,diseaseCategoryName:"老年斑"},{diseaseCategoryId:188,diseaseCategoryName:"抗衰老"},{diseaseCategoryId:183,diseaseCategoryName:"预防感冒"},{diseaseCategoryId:187,diseaseCategoryName:"竞技综合征"},{diseaseCategoryId:211,diseaseCategoryName:"流行性腮腺炎"},{diseaseCategoryId:184,diseaseCategoryName:"预防晕车、晕船、晕机"},{diseaseCategoryId:210,diseaseCategoryName:"减肥（针对单纯性肥胖）"}]},{systemId:15,systemName:"其他功能",diseaseCategoryList:[{diseaseCategoryId:215,diseaseCategoryName:"鼻通"},{diseaseCategoryId:221,diseaseCategoryName:"止惊"},{diseaseCategoryId:192,diseaseCategoryName:"补血"},{diseaseCategoryId:214,diseaseCategoryName:"明目"},{diseaseCategoryId:220,diseaseCategoryName:"止血"},{diseaseCategoryId:191,diseaseCategoryName:"补肾"},{diseaseCategoryId:213,diseaseCategoryName:"利尿"},{diseaseCategoryId:219,diseaseCategoryName:"止咳"},{diseaseCategoryId:190,diseaseCategoryName:"助听"},{diseaseCategoryId:212,diseaseCategoryName:"强心"},{diseaseCategoryId:217,diseaseCategoryName:"退烧"},{diseaseCategoryId:223,diseaseCategoryName:"止遗"},{diseaseCategoryId:194,diseaseCategoryName:"活血"},{diseaseCategoryId:216,diseaseCategoryName:"美容"},{diseaseCategoryId:222,diseaseCategoryName:"止痒"},{diseaseCategoryId:193,diseaseCategoryName:"健脑"},{diseaseCategoryId:198,diseaseCategoryName:"抗风湿"},{diseaseCategoryId:218,diseaseCategoryName:"健肝血"},{diseaseCategoryId:197,diseaseCategoryName:"抗过敏"},{diseaseCategoryId:200,diseaseCategoryName:"理气消胀"},{diseaseCategoryId:199,diseaseCategoryName:"健脾助运"},{diseaseCategoryId:203,diseaseCategoryName:"提高免疫力"},{diseaseCategoryId:202,diseaseCategoryName:"调整内分泌功能"},{diseaseCategoryId:224,diseaseCategoryName:"调整植物神经功能"},{diseaseCategoryId:225,diseaseCategoryName:"调整月经周期、经量"}]}];		var arr = [];
+		var mod = [];
+		var num = 0;
+		timer = data1.length;
 		for (var i = 0; i < data1.length; i++) {
 			arr.push(data1[i].systemName);
-			mod.push(data1[i].systemId);
 		}
-
 		for (var i = 0; i < timer; i++) {
 			$('.section1').append('<dl class="am-accordion-item"><dt class="am-accordion-title">' + arr[i] + '</dt><dd class="am-accordion-bd am-collapse"><div class="am-accordion-content"><div class="am-list-news-bd"><ul class="am-list am-list-'+i+'"></ul></div></div></dd></dl>')
-			
-		}//系统生成
+			num++;
+			for(var j=0;j<data1[i].diseaseCategoryList.length;j++){
+	        $(".am-list").eq(i)
+	        .append('<li class="am-g am-list-item-dated"><a href="./widget3.html?diseaseCategoryId='+data1[i].diseaseCategoryList[j].diseaseCategoryId+'" class="am-list-item-hd ">'+data1[i].diseaseCategoryList[j].diseaseCategoryName+'</a></li>'); 
+	     	 }
 
-		link=mod.length;
-		// alert(timer);
-		mods=mod;
-	}
-});
-//alert(link);
-var num=0;
-var datamod=[];
-for(var i=0;i<link;i++){
-	$.ajax({
-	    url: url+ '/ErXueSSM/findDiseaseCategoryBySystemId.action',
-	    type: 'GET',
-	    dataType: '',
-	    async: false,  
-        xhrFields: {  
-            withCredentials: true  
-        },  
-	    data: {systemId: mods[i]},
-	    success:function(data){
-	      var mod=[];
-	      //console.log(data);
-	      var arr=[];
-	      datamod.push(data);
-	      
-	      for(var i=0;i<data.length;i++){
-	        mod.push(data[i].diseaseCategoryName);
-	        arr.push(data[i].diseaseCategoryId);
-	        $(".am-list").eq(num).append('<li class="am-g am-list-item-dated"><a onclick="abc(this);" data-num='+num+' data-i='+i+' href=./widget3.html?diseaseCategoryId='+arr[i]+' class="am-list-item-hd ">'+mod[i]+'</a></li>');
-	      }
-	      num++;
-	    }
-	  });
-	//console.log(datamod);
-	allData=datamod;
+		}
+		var flag = false;
+		
+		//系统生成			
+//		$('.am-accordion-title').click(function(){
+//			if(this.parentNode.children[1].getAttribute("class") == "am-accordion-bd am-collapse"){
+//				 flag= true;
+//			}else{
+//				flag = false;
+//			}
+//			if(flag){
+//				this.parentNode.children[1].setAttribute("class","am-accordion-bd am-collapse am-in");
+//			}else{
+//				this.parentNode.children[1].setAttribute("class","am-accordion-bd am-collapse");
+//			}
+//		});
 }
-	// var json = {};
-	// for(var i=0;i<allData.length;i++)
-	// {
-	//     json[i]=allData[i];
-	// }
-	// JSON.stringify(json);
-	//console.log(allData[0][1]);
+//		});//显示隐藏
+//	}
+
+	
+//	});
 
 
-function abc(dom){
-	var id=dom.getAttribute('data-num');
-	var aId=dom.getAttribute('data-i');
-	//alert(allData[id][aId].diseaseDescription);
-	localStorage.diseaseDescription=allData[id][aId].diseaseDescription;
-
-
-}
